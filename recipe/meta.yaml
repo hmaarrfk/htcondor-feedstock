@@ -12,7 +12,7 @@ package:
 
 source:
   url: "https://github.com/{{ name }}/{{ name }}/archive/V{{ uversion }}.tar.gz"
-  sha256: aa01d3cf04bd574580772c269e42a1294bec26f49cfb3b64bcba4f490b85b272
+  sha256: 02be972708f17b57af607e77998fef0da819cd240dc44df4d4f4dbe6f54ae707
   patches:
     # use updated external config for boost
     - boost-1.68.0.patch
