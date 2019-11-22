@@ -3,7 +3,11 @@
 {% set uversion = version|replace('.', '_') %}
 
 package:
-  name: "{{ name|lower }}"
+  # the top-level package should be called `htcondor`, but
+  # because the metapackage needs to specify host dependencies
+  # we have to rename the top-level package so that conda-build
+  # doesn't get confused
+  name: "{{ name|lower }}-build"
   version: "{{ version }}"
 
 source:
@@ -24,7 +28,7 @@ source:
     - paths.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [not linux]
 
 requirements:
@@ -266,10 +270,13 @@ outputs:
 
   - name: htcondor
     requirements:
+      host:
+        - python
       run:
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - {{ pin_subpackage('htcondor-procd', exact=True) }}
         - {{ pin_subpackage('libcondor_utils', exact=True) }}
+        - python
         - {{ pin_subpackage('python-htcondor', exact=True) }}
         - {{ pin_subpackage('htcondor-utils', exact=True) }}
     test:
