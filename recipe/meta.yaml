@@ -1,5 +1,5 @@
 {% set name = "htcondor" %}
-{% set version = "8.9.4" %}
+{% set version = "8.9.5" %}
 {% set uversion = version|replace('.', '_') %}
 
 package:
@@ -12,7 +12,7 @@ package:
 
 source:
   url: "https://github.com/{{ name }}/{{ name }}/archive/V{{ uversion }}.tar.gz"
-  sha256: 02be972708f17b57af607e77998fef0da819cd240dc44df4d4f4dbe6f54ae707
+  sha256: eb0c5c94c41f438266b731c10ac6dc5a62952eacafe81a03c20b1ec37c76e146
   patches:
     # set C_PYTHONARCHLIB for python
     - python-archlib.patch
@@ -22,7 +22,7 @@ source:
     - paths.patch
 
 build:
-  number: 1
+  number: 0
   skip: true  # [not linux]
 
 requirements:
