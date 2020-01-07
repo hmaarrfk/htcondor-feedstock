@@ -232,6 +232,7 @@ outputs:
         - munge
         - pcre
         - python
+        - setuptools
       run:
         - {{ pin_compatible('boost') }}
         - {{ pin_subpackage('libcondor_utils', exact=True) }}
