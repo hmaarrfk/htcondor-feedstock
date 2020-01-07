@@ -14,12 +14,6 @@ source:
   url: "https://github.com/{{ name }}/{{ name }}/archive/V{{ uversion }}.tar.gz"
   sha256: 02be972708f17b57af607e77998fef0da819cd240dc44df4d4f4dbe6f54ae707
   patches:
-    # use updated external config for boost
-    - boost-1.68.0.patch
-    # htcondor/htcondor@82c9334deb3cfa4279bda80a1d4e86b7d78aca15
-    - python3.patch
-    # remove py3 prefix from lib names
-    - python3-libname.patch
     # set C_PYTHONARCHLIB for python
     - python-archlib.patch
     # use RPATH, not RUNPATH
