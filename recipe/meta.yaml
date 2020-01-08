@@ -229,6 +229,7 @@ outputs:
         - gct
         - {{ pin_subpackage('libcondor_utils', exact=True) }}
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
+        - libuuid  # [unix]
         - munge
         - pcre
         - python
