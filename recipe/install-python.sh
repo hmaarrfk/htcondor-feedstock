@@ -51,9 +51,8 @@ cmake $SRC_DIR \
 
 # build
 cmake --build src/python-bindings --parallel ${CPU_COUNT}
+cmake --build bindings/python --parallel ${CPU_COUNT}
 
 # install
 cmake --build src/python-bindings --parallel ${CPU_COUNT} --target install
-
-# create an empty egg-info to declare this install to pip
-touch ${SP_DIR}/htcondor-${PKG_VERSION}-py${PY_VER}.egg-info
+cmake --build bindings/python --parallel ${CPU_COUNT} --target install

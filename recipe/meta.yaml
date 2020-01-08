@@ -1,5 +1,5 @@
 {% set name = "htcondor" %}
-{% set version = "8.9.3" %}
+{% set version = "8.9.4" %}
 {% set uversion = version|replace('.', '_') %}
 
 package:
@@ -12,14 +12,8 @@ package:
 
 source:
   url: "https://github.com/{{ name }}/{{ name }}/archive/V{{ uversion }}.tar.gz"
-  sha256: 40c01d5284a610bc840c00ffaaf825a9b604e2f5ff4945390975d487c13782e8
+  sha256: 02be972708f17b57af607e77998fef0da819cd240dc44df4d4f4dbe6f54ae707
   patches:
-    # use updated external config for boost
-    - boost-1.68.0.patch
-    # htcondor/htcondor@82c9334deb3cfa4279bda80a1d4e86b7d78aca15
-    - python3.patch
-    # remove py3 prefix from lib names
-    - python3-libname.patch
     # set C_PYTHONARCHLIB for python
     - python-archlib.patch
     # use RPATH, not RUNPATH
@@ -238,6 +232,7 @@ outputs:
         - munge
         - pcre
         - python
+        - setuptools
       run:
         - {{ pin_compatible('boost') }}
         - {{ pin_subpackage('libcondor_utils', exact=True) }}
