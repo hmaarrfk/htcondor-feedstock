@@ -22,6 +22,8 @@ source:
     - paths.patch
 
 build:
+  error_overdepending: true
+  error_overlinking: true
   number: 0
   skip: true  # [not linux]
 
@@ -217,6 +219,7 @@ outputs:
     build:
       ignore_run_exports:
         - gct
+        - libuuid
         - pcre
     requirements:
       build:
