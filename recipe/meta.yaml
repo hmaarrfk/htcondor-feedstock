@@ -143,6 +143,7 @@ outputs:
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
         - munge
+        - openmp_impl  # [linux]
         - openssl
         - pcre
         - voms
