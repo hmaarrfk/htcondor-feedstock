@@ -133,6 +133,7 @@ outputs:
         - gct
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
+        - libuuid  # [linux]
         - munge
         - openssl
         - pcre
