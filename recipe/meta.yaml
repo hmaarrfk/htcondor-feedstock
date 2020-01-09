@@ -1,5 +1,5 @@
 {% set name = "htcondor" %}
-{% set version = "8.9.4" %}
+{% set version = "8.9.5" %}
 {% set uversion = version|replace('.', '_') %}
 
 package:
@@ -12,7 +12,7 @@ package:
 
 source:
   url: "https://github.com/{{ name }}/{{ name }}/archive/V{{ uversion }}.tar.gz"
-  sha256: 02be972708f17b57af607e77998fef0da819cd240dc44df4d4f4dbe6f54ae707
+  sha256: eb0c5c94c41f438266b731c10ac6dc5a62952eacafe81a03c20b1ec37c76e146
   patches:
     # set C_PYTHONARCHLIB for python
     - python-archlib.patch
@@ -22,7 +22,9 @@ source:
     - paths.patch
 
 build:
-  number: 1
+  error_overdepending: true
+  error_overlinking: true
+  number: 0
   skip: true  # [not linux]
 
 requirements:
@@ -131,6 +133,7 @@ outputs:
         - gct
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
+        - libuuid  # [linux]
         - munge
         - openssl
         - pcre
@@ -140,6 +143,7 @@ outputs:
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
         - munge
+        - openmp_impl  # [linux]
         - openssl
         - pcre
         - voms
@@ -176,6 +180,7 @@ outputs:
         - {{ pin_subpackage("libcondor_utils", exact=True) }}
         - libcurl
         - libuuid  # [unix]
+        - openmp_impl  # [linux]
         - voms
     files:
       - bin/condor*
@@ -217,6 +222,7 @@ outputs:
     build:
       ignore_run_exports:
         - gct
+        - libuuid
         - pcre
     requirements:
       build:
@@ -229,6 +235,7 @@ outputs:
         - gct
         - {{ pin_subpackage('libcondor_utils', exact=True) }}
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
+        - libuuid  # [unix]
         - munge
         - pcre
         - python
