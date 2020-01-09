@@ -180,6 +180,7 @@ outputs:
         - {{ pin_subpackage("libcondor_utils", exact=True) }}
         - libcurl
         - libuuid  # [unix]
+        - openmp_impl  # [linux]
         - voms
     files:
       - bin/condor*
