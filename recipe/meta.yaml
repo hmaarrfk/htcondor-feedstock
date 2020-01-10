@@ -24,7 +24,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 0
+  number: 1
   skip: true  # [not linux]
 
 requirements:
@@ -143,7 +143,6 @@ outputs:
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
         - munge
-        - openmp_impl  # [linux]
         - openssl
         - pcre
         - voms
@@ -180,7 +179,6 @@ outputs:
         - {{ pin_subpackage("libcondor_utils", exact=True) }}
         - libcurl
         - libuuid  # [unix]
-        - openmp_impl  # [linux]
         - voms
     files:
       - bin/condor*
