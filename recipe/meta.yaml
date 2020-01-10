@@ -50,7 +50,6 @@ requirements:
     - pcre
     - sqlite
     - voms
-    - libgomp  # [linux]
 
 outputs:
   - name: htcondor-classads
@@ -139,6 +138,7 @@ outputs:
         - openssl
         - pcre
         - voms
+        - libgomp  # [linux]
       run:
         - gct
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
@@ -173,6 +173,7 @@ outputs:
         - {{ pin_subpackage("htcondor-procd", exact=True) }}
         - {{ pin_subpackage("libcondor_utils", exact=True) }}
         - libuuid  # [unix]
+        - libgomp  # [linux]
         - voms
       run:
         - {{ pin_subpackage("htcondor-classads", exact=True) }}
