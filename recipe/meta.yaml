@@ -50,6 +50,7 @@ requirements:
     - pcre
     - sqlite
     - voms
+    - libgomp  # [linux]
 
 outputs:
   - name: htcondor-classads
