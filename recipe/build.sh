@@ -10,7 +10,7 @@ CXXFLAGS="$(pkg-config --cflags-only-I globus-common) ${CXXFLAGS}"
 
 # link libdl
 if [ "$(uname)" == "Linux" ]; then
-	export LDFLAGS="-ldl ${LDFLAGS}"
+	export LDFLAGS="-ldl -lrt ${LDFLAGS}"
 fi
 
 # set boost library option name
