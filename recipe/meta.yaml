@@ -1,5 +1,5 @@
 {% set name = "htcondor" %}
-{% set version = "8.9.5" %}
+{% set version = "8.9.6" %}
 {% set uversion = version|replace('.', '_') %}
 
 package:
@@ -7,12 +7,12 @@ package:
   # because the metapackage needs to specify host dependencies
   # we have to rename the top-level package so that conda-build
   # doesn't get confused
-  name: "{{ name|lower }}-build"
-  version: "{{ version }}"
+  name: {{ name|lower }}-build
+  version: {{ version }}
 
 source:
-  url: "https://github.com/{{ name }}/{{ name }}/archive/V{{ uversion }}.tar.gz"
-  sha256: eb0c5c94c41f438266b731c10ac6dc5a62952eacafe81a03c20b1ec37c76e146
+  url: https://github.com/{{ name }}/{{ name }}/archive/V{{ uversion }}.tar.gz
+  sha256: 1c0a3787e0357a090cdbb3d927182690e4f9894988c25d5dc5b7f2e5e552fd8a
   patches:
     # set C_PYTHONARCHLIB for python
     - python-archlib.patch
@@ -24,7 +24,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 3
+  number: 0
   skip: true  # [not linux]
 
 requirements:
@@ -72,13 +72,13 @@ outputs:
       commands:
         - classad_version
     about:
-      home: "http://htcondor.org/"
-      doc_url: "https://htcondor.readthedocs.io/"
-      dev_url: "https://github.com/htcondor/htcondor"
-      license: "Apache-2.0"
-      license_family: "APACHE"
-      license_file: "LICENSE-2.0.txt"
-      summary: "HTCondor's classified advertisement language"
+      home: http://htcondor.org/
+      doc_url: https://htcondor.readthedocs.io/
+      dev_url: https://github.com/htcondor/htcondor
+      license: Apache-2.0
+      license_family: APACHE
+      license_file: LICENSE-2.0.txt
+      summary: HTCondor's classified advertisement language
       description: |
         Classified Advertisements (classads) are the lingua franca of
         HTCondor. They are used for describing jobs, workstations, and other
@@ -110,13 +110,13 @@ outputs:
       commands:
         - test -x ${PREFIX}/sbin/condor_procd  # [unix]
     about:
-      home: "http://htcondor.org/"
-      doc_url: "https://htcondor.readthedocs.io/"
-      dev_url: "https://github.com/htcondor/htcondor"
-      license: "Apache-2.0"
-      license_family: "APACHE"
-      license_file: "LICENSE-2.0.txt"
-      summary: "HTCondor Process tracking Daemon"
+      home: http://htcondor.org/
+      doc_url: https://htcondor.readthedocs.io/
+      dev_url: https://github.com/htcondor/htcondor
+      license: Apache-2.0
+      license_family: APACHE
+      license_file: LICENSE-2.0.txt
+      summary: HTCondor Process tracking Daemon
       description: |
         A daemon for tracking child processes started by a parent.
         Part of HTCondor, but able to be stand-alone
@@ -153,14 +153,14 @@ outputs:
       commands:
         - test -f ${PREFIX}/lib/libcondor_utils_{{ uversion }}${SHLIB_EXT}  # [unix]
     about:
-      home: "http://htcondor.org/"
-      doc_url: "https://htcondor.readthedocs.io/"
-      dev_url: "https://github.com/htcondor/htcondor"
-      license: "Apache-2.0"
-      license_family: "APACHE"
-      license_file: "LICENSE-2.0.txt"
-      summary: "HTCondor utilities library"
-      description: "Just the HTCondor libcondor_utils shared object library."
+      home: http://htcondor.org/
+      doc_url: https://htcondor.readthedocs.io/
+      dev_url: https://github.com/htcondor/htcondor
+      license: Apache-2.0
+      license_family: APACHE
+      license_file: LICENSE-2.0.txt
+      summary: HTCondor utilities library
+      description: Just the HTCondor libcondor_utils shared object library.
 
   - name: htcondor-utils
     requirements:
@@ -193,20 +193,20 @@ outputs:
       - lib/libchirp*
     test:
       commands:
-        - "export CONDOR_CONFIG=/dev/null"
+        - export CONDOR_CONFIG=/dev/null
         - condor_q --help
         - condor_qedit --help
         - condor_status --help
         - condor_submit --help
         - condor_submit_dag --help
     about:
-      home: "http://htcondor.org/"
-      doc_url: "https://htcondor.readthedocs.io/"
-      dev_url: "https://github.com/htcondor/htcondor"
-      license: "Apache-2.0"
-      license_family: "APACHE"
-      license_file: "LICENSE-2.0.txt"
-      summary: "HTCondor: High Throughput Computing"
+      home: http://htcondor.org/
+      doc_url: https://htcondor.readthedocs.io/
+      dev_url: https://github.com/htcondor/htcondor
+      license: Apache-2.0
+      license_family: APACHE
+      license_file: LICENSE-2.0.txt
+      summary: 'HTCondor: High Throughput Computing'
       description: |
         HTCondor is a workload management system for high-throughput and
         high-performance jobs. Like other full-featured batch systems, HTCondor
@@ -257,13 +257,13 @@ outputs:
         # do anything
         - python -m pip install --no-deps --index-url nothing {{ name }}
     about:
-      home: "http://htcondor.org/"
-      doc_url: "https://htcondor.readthedocs.io/"
-      dev_url: "https://github.com/htcondor/htcondor"
-      license: "Apache-2.0"
-      license_family: "APACHE"
-      license_file: "LICENSE-2.0.txt"
-      summary: "Python bindings for HTCondor"
+      home: http://htcondor.org/
+      doc_url: https://htcondor.readthedocs.io/
+      dev_url: https://github.com/htcondor/htcondor
+      license: Apache-2.0
+      license_family: APACHE
+      license_file: LICENSE-2.0.txt
+      summary: Python bindings for HTCondor
       description: |
         The HTCondor Python bindings aim to expose a high-quality,
         Pythonic interface to the HTCondor client libraries. They utilize
@@ -286,17 +286,17 @@ outputs:
         - htcondor
         - classad
       commands:
-        - "export CONDOR_CONFIG=/dev/null"
+        - export CONDOR_CONFIG=/dev/null
         - condor_q --version
 
 about:
-  home: "http://htcondor.org/"
-  doc_url: "https://htcondor.readthedocs.io/"
-  dev_url: "https://github.com/htcondor/htcondor"
-  license: "Apache-2.0"
-  license_family: "APACHE"
-  license_file: "LICENSE-2.0.txt"
-  summary: "HTCondor: High Throughput Computing"
+  home: http://htcondor.org/
+  doc_url: https://htcondor.readthedocs.io/
+  dev_url: https://github.com/htcondor/htcondor
+  license: Apache-2.0
+  license_family: APACHE
+  license_file: LICENSE-2.0.txt
+  summary: 'HTCondor: High Throughput Computing'
   description: |
     HTCondor is a workload management system for high-throughput and
     high-performance jobs. Like other full-featured batch systems, HTCondor
