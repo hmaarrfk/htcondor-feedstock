@@ -224,6 +224,7 @@ outputs:
         - gct
         - libuuid
         - pcre
+        - python
     requirements:
       build:
         - {{ compiler('cxx') }}
