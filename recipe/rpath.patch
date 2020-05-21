@@ -1,15 +1,14 @@
-diff --git a/build/cmake/CondorConfigure.cmake b/build/cmake/CondorConfigure.cmake
-index 0f767aa71b..9b8717773b 100644
---- a/build/cmake/CondorConfigure.cmake
-+++ b/build/cmake/CondorConfigure.cmake
-@@ -1340,10 +1340,6 @@ else(MSVC)
-                endif()
-        endif(LINUX)
+--- build/cmake/CondorConfigure.cmake	2020-05-19 21:08:53.000000000 +0100
++++ build/cmake/CondorConfigure.cmake	2020-05-21 10:31:56.912718712 +0100
+@@ -1341,11 +1341,6 @@
+ 		endif()
+ 	endif(LINUX)
 
--       if (LINUX)
--               set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--enable-new-dtags")
--       endif(LINUX)
+-	if (LINUX)
+-		set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--enable-new-dtags")
+-		set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--enable-new-dtags")
+-	endif(LINUX)
 -
-        if (AIX)
-                # specifically ask for the C++ libraries to be statically linked
-                set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-berok -Wl,-bstatic -lstdc++ -Wl,-bdynamic -lcfg -lodm -static-libgcc")
+ 	if (AIX)
+ 		# specifically ask for the C++ libraries to be statically linked
+ 		set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-berok -Wl,-bstatic -lstdc++ -Wl,-bdynamic -lcfg -lodm -static-libgcc")
