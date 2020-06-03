@@ -17,7 +17,7 @@ docker_image:
 expat:
 - '2.2'
 krb5:
-- '1.16'
+- 1.17.1
 libcurl:
 - '7'
 libuuid:
