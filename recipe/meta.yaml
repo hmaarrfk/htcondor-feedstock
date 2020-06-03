@@ -20,6 +20,8 @@ source:
     - rpath.patch
     # set install paths
     - paths.patch
+    # don't link libpython
+    - python-no-libpython.patch
 
 build:
   error_overdepending: true
