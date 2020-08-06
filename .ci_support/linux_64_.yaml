@@ -56,3 +56,5 @@ python:
 - 3.8.* *_cpython
 sqlite:
 - '3'
+target_platform:
+- linux-64
