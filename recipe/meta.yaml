@@ -1,5 +1,5 @@
 {% set name = "htcondor" %}
-{% set version = "8_9_7" %}
+{% set version = "8_9_8" %}
 
 package:
   # the top-level package should be called `htcondor`, but
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/V{{ version }}.tar.gz
-  sha256: bd3f208061a38e3602bcb15ba3bb2d24e60d00b5a0d962edcbf21e0119ba0c8e
+  sha256: a52dbb68fc90170fde4285a39fa0ca8ea20c7a8e6361d5b70f9900c7b0125e15
   patches:
     # set C_PYTHONARCHLIB for python
     - python-archlib.patch
@@ -25,7 +25,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 2
+  number: 0
   skip: true  # [not linux]
 
 requirements:
@@ -36,6 +36,7 @@ requirements:
     - make  # [unix]
     - perl
     - pkg-config  # [unix]
+    - sysroot_linux-64 2.17  # [linux64]
   host:
     - {{ cdt('libselinux') }}  # [linux]
     - boost
