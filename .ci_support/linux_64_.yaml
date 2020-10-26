@@ -1,9 +1,11 @@
 boost:
-- '1.72'
+- 1.72.0
 c_compiler:
 - gcc
 c_compiler_version:
 - '7'
+cdt_name:
+- cos6
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -58,3 +60,6 @@ sqlite:
 - '3'
 target_platform:
 - linux-64
+zip_keys:
+- - c_compiler_version
+  - cxx_compiler_version

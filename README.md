@@ -5,9 +5,13 @@ Home: http://htcondor.org/
 
 Package license: Apache-2.0
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/htcondor-feedstock/blob/master/LICENSE.txt)
 
 Summary: HTCondor's classified advertisement language
+
+Development: https://github.com/htcondor/htcondor
+
+Documentation: https://htcondor.readthedocs.io/
 
 Classified Advertisements (classads) are the lingua franca of
 HTCondor. They are used for describing jobs, workstations, and other
