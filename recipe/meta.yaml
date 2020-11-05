@@ -21,6 +21,8 @@ source:
     - paths.patch
     # don't link libpython
     - python-no-libpython.patch
+    # don't use cgroups
+    - cgroup.patch
 
 build:
   error_overdepending: true
