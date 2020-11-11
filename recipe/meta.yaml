@@ -23,6 +23,8 @@ source:
     - python-no-libpython.patch
     # don't use cgroups
     - cgroup.patch
+    # allow disabling dlopen from command line
+    - disable-dlopen.patch
 
 build:
   error_overdepending: true
