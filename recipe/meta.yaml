@@ -29,7 +29,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 2
+  number: 3
   skip: true  # [not linux]
 
 requirements:
@@ -40,6 +40,7 @@ requirements:
     - make  # [unix]
     - perl
     - pkg-config  # [unix]
+    - sphinx
     - sysroot_linux-64 2.17  # [linux64]
   host:
     - {{ cdt('libselinux') }}  # [linux]
@@ -197,6 +198,7 @@ outputs:
       - lib/*.jar
       - lib/libcondorapi*
       - lib/libchirp*
+      - man/man1/condor*.1
     test:
       commands:
         - export CONDOR_CONFIG=/dev/null
