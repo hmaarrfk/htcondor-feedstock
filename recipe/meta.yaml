@@ -1,5 +1,5 @@
 {% set name = "htcondor" %}
-{% set version = "8_9_8" %}
+{% set version = "8_9_9" %}
 
 package:
   # the top-level package should be called `htcondor`, but
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/V{{ version }}.tar.gz
-  sha256: a52dbb68fc90170fde4285a39fa0ca8ea20c7a8e6361d5b70f9900c7b0125e15
+  sha256: 781619576df53b2352fc21e8aa7ffd145f783145f1fce001b99c2d5ae5ce5907
   patches:
     # set C_PYTHONARCHLIB for python
     - python-archlib.patch
@@ -21,6 +21,10 @@ source:
     - paths.patch
     # don't link libpython
     - python-no-libpython.patch
+    # don't use cgroups
+    - cgroup.patch
+    # allow disabling dlopen from command line
+    - disable-dlopen.patch
 
 build:
   error_overdepending: true
