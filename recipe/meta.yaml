@@ -23,6 +23,8 @@ source:
     - python-no-libpython.patch
     # don't use cgroups
     - cgroup.patch
+    # fix man directory
+    - man-directory.patch
 
 build:
   error_overdepending: true
