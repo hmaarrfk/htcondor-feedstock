@@ -21,8 +21,6 @@ source:
     - paths.patch
     # don't link libpython
     - python-no-libpython.patch
-    # don't use cgroups
-    - cgroup.patch
     # fix man directory
     - man-directory.patch
 
