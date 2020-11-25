@@ -1,0 +1,13 @@
+diff --git a/build/cmake/CondorPackageConfig.cmake b/build/cmake/CondorPackageConfig.cmake
+index a1135e5c9e..813bc7be92 100644
+--- a/build/cmake/CondorPackageConfig.cmake
++++ b/build/cmake/CondorPackageConfig.cmake
+@@ -133,7 +133,7 @@ set( C_PYTHON3ARCHLIB lib/python3)
+ 
+ set( C_INCLUDE		include)
+ set( C_INCLUDE_PUBLIC		include)
+-set( C_MAN			man)
++set( C_MAN			man/man1)
+ set( C_SRC			src)
+ set( C_SQL			sql)
+ set( C_SERVICES     services)
