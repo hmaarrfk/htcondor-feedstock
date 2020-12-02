@@ -1,12 +1,10 @@
 #!/bin/bash
 set -eux
 
-mkdir -p _build
-pushd _build
-
-# add globus header directory to include path
-#CFLAGS="$(pkg-config --cflags-only-I globus-common) ${CFLAGS} "
-#CXXFLAGS="$(pkg-config --cflags-only-I globus-common) ${CXXFLAGS}"
+_builddir="_build${PY_VER}"
+rm -rf ${_builddir}
+mkdir -pv ${_builddir}
+pushd ${_builddir}
 
 # configure
 cmake $SRC_DIR \
@@ -19,6 +17,7 @@ cmake $SRC_DIR \
 	-DCMAKE_INSTALL_PREFIX:PATH="${PREFIX}" \
 	-DENABLE_JAVA_TESTS:BOOL=FALSE \
 	-DHAVE_BOINC:BOOL=FALSE \
+	-DHAVE_EXT_GLOBUS:BOOL=FALSE \
 	-DPROPER:BOOL=TRUE \
 	-DPYTHON_EXECUTABLE:PATH=FALSE \
 	-DPYTHON3_EXECUTABLE:PATH="${PYTHON}" \
@@ -30,7 +29,7 @@ cmake $SRC_DIR \
 	-DWITH_BOINC:BOOL=FALSE \
 	-DWITH_CREAM:BOOL=FALSE \
 	-DWITH_GANGLIA:BOOL=FALSE \
-	-DWITH_GLOBUS:BOOL=TRUE \
+	-DWITH_GLOBUS:BOOL=FALSE \
 	-DWITH_KRB5:BOOL=FALSE \
 	-DWITH_MUNGE:BOOL=FALSE \
 	-DWITH_PYTHON_BINDINGS:BOOL=TRUE \
