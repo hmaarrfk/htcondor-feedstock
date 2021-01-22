@@ -51,17 +51,10 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_boost1.72.0</td>
+              <td>linux_64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8358&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/htcondor-feedstock?branchName=master&jobName=linux&configuration=linux_64_boost1.72.0" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_64_boost1.74.0</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8358&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/htcondor-feedstock?branchName=master&jobName=linux&configuration=linux_64_boost1.74.0" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/htcondor-feedstock?branchName=master&jobName=linux&configuration=linux_64_" alt="variant">
                 </a>
               </td>
             </tr>
@@ -79,7 +72,6 @@ Current release info
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-htcondor-green.svg)](https://anaconda.org/conda-forge/htcondor) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/htcondor.svg)](https://anaconda.org/conda-forge/htcondor) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/htcondor.svg)](https://anaconda.org/conda-forge/htcondor) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/htcondor.svg)](https://anaconda.org/conda-forge/htcondor) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-htcondor--classads-green.svg)](https://anaconda.org/conda-forge/htcondor-classads) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/htcondor-classads.svg)](https://anaconda.org/conda-forge/htcondor-classads) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/htcondor-classads.svg)](https://anaconda.org/conda-forge/htcondor-classads) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/htcondor-classads.svg)](https://anaconda.org/conda-forge/htcondor-classads) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-htcondor--procd-green.svg)](https://anaconda.org/conda-forge/htcondor-procd) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/htcondor-procd.svg)](https://anaconda.org/conda-forge/htcondor-procd) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/htcondor-procd.svg)](https://anaconda.org/conda-forge/htcondor-procd) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/htcondor-procd.svg)](https://anaconda.org/conda-forge/htcondor-procd) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-htcondor--utils-green.svg)](https://anaconda.org/conda-forge/htcondor-utils) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/htcondor-utils.svg)](https://anaconda.org/conda-forge/htcondor-utils) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/htcondor-utils.svg)](https://anaconda.org/conda-forge/htcondor-utils) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/htcondor-utils.svg)](https://anaconda.org/conda-forge/htcondor-utils) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libcondor_utils-green.svg)](https://anaconda.org/conda-forge/libcondor_utils) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcondor_utils.svg)](https://anaconda.org/conda-forge/libcondor_utils) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcondor_utils.svg)](https://anaconda.org/conda-forge/libcondor_utils) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcondor_utils.svg)](https://anaconda.org/conda-forge/libcondor_utils) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-python--htcondor-green.svg)](https://anaconda.org/conda-forge/python-htcondor) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/python-htcondor.svg)](https://anaconda.org/conda-forge/python-htcondor) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/python-htcondor.svg)](https://anaconda.org/conda-forge/python-htcondor) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/python-htcondor.svg)](https://anaconda.org/conda-forge/python-htcondor) |
@@ -93,10 +85,10 @@ Installing `htcondor-build` from the `conda-forge` channel can be achieved by ad
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `htcondor, htcondor-classads, htcondor-procd, htcondor-utils, libcondor_utils, python-htcondor` can be installed with:
+Once the `conda-forge` channel has been enabled, `htcondor, htcondor-classads, htcondor-utils, libcondor_utils, python-htcondor` can be installed with:
 
 ```
-conda install htcondor htcondor-classads htcondor-procd htcondor-utils libcondor_utils python-htcondor
+conda install htcondor htcondor-classads htcondor-utils libcondor_utils python-htcondor
 ```
 
 It is possible to list all of the versions of `htcondor` available on your platform with:
