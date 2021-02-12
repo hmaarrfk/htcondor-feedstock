@@ -1,11 +1,11 @@
 boost:
-- 1.72.0
+- 1.74.0
 c_compiler:
 - gcc
 c_compiler_version:
-- '7'
+- '9'
 cdt_name:
-- cos6
+- cos7
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -13,7 +13,7 @@ channel_targets:
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '7'
+- '9'
 docker_image:
 - condaforge/linux-anvil-cos7-x86_64
 expat:
@@ -64,3 +64,5 @@ target_platform:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+- - cdt_name
+  - docker_image

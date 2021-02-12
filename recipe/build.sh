@@ -1,8 +1,10 @@
 #!/bin/bash
 set -eux
 
-mkdir -p _build
-pushd _build
+_builddir="_build"
+rm -rf ${_builddir}
+mkdir -pv ${_builddir}
+pushd ${_builddir}
 
 # add globus header directory to include path
 CFLAGS="$(pkg-config --cflags-only-I globus-common) ${CFLAGS} "
@@ -18,7 +20,6 @@ cmake $SRC_DIR \
 	-D_VERBOSE:BOOL=TRUE \
 	-DBUILD_SHARED_LIBS:BOOL=TRUE \
 	-DBUILD_TESTING:BOOL=FALSE \
-	-DCLIPPED:BOOL=TRUE \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 	-DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
 	-DCMAKE_INSTALL_LIBDIR:PATH="lib" \
@@ -49,3 +50,33 @@ cmake --build . --parallel ${CPU_COUNT}
 
 # install
 cmake --build . --parallel ${CPU_COUNT} --target install
+
+# -- create the condor_config file
+
+cp -v ${SRC_DIR}/src/condor_examples/condor_config.generic condor_config.patched
+patch condor_config.patched ${RECIPE_DIR}/condor_config.generic.conda.patch
+install -m=0644 -T condor_config.patched ${PREFIX}/etc/condor/condor_config
+
+# -- create activate/deactivate scripts
+
+# activate.sh
+ACTIVATE_SH="${PREFIX}/etc/conda/activate.d/activate_condor.sh"
+mkdir -p $(dirname ${ACTIVATE_SH})
+cat > ${ACTIVATE_SH} << EOF
+#!/bin/bash
+export CONDA_BACKUP_CONDOR_CONFIG="\${CONDOR_CONFIG:-empty}"
+export CONDOR_CONFIG="/opt/anaconda1anaconda2anaconda3/etc/condor/condor_config"
+EOF
+
+# deactivate.sh
+DEACTIVATE_SH="${PREFIX}/etc/conda/deactivate.d/deactivate_condor.sh"
+mkdir -p $(dirname ${DEACTIVATE_SH})
+cat > ${DEACTIVATE_SH} << EOF
+#!/bin/bash
+if [ "\${CONDA_BACKUP_CONDOR_CONFIG}" = "empty" ]; then
+	unset CONDOR_CONFIG
+else
+	export CONDOR_CONFIG="\${CONDA_BACKUP_CONDOR_CONFIG}"
+fi
+unset CONDA_BACKUP_CONDOR_CONFIG
+EOF
