@@ -1,0 +1,29 @@
+######################################################################
+##
+##  condor_config
+##
+##  This is the global configuration file for condor installed via
+##  conda.  This file is designed to load the system configuration
+##  then modify as little as possible to set up paths to point at
+##  the conda environment.
+##
+##  You probably don't want to modify this file, but rather add
+##  more custom settings into the conda-installed local configuration
+##  directory in ${CONDA_PREFIX}/etc/condor/config.d/.
+##
+######################################################################
+
+##  load system configuration first
+SYSTEM_CONFIG_FILE = /etc/condor/condor_config
+include ifexist : $(SYSTEM_CONFIG_FILE)
+
+##  override paths for conda
+CONDA_RELEASE_DIR = /opt/anaconda1anaconda2anaconda3
+BIN               = $(CONDA_RELEASE_DIR)/bin
+LIB               = $(CONDA_RELEASE_DIR)/lib/condor
+INCLUDE           = $(CONDA_RELEASE_DIR)/include/condor
+LIBEXEC           = $(CONDA_RELEASE_DIR)/lib/condor/libexec
+SHARE             = $(CONDA_RELEASE_DIR)/share/condor
+
+##  enable more local overrides
+LOCAL_CONFIG_DIR = $(LOCAL_CONFIG_DIR) /opt/anaconda1anaconda2anaconda3/etc/condor/config.d

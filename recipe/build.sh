@@ -53,9 +53,8 @@ cmake --build . --parallel ${CPU_COUNT} --target install
 
 # -- create the condor_config file
 
-cp -v ${SRC_DIR}/src/condor_examples/condor_config.generic condor_config.patched
-patch condor_config.patched ${RECIPE_DIR}/condor_config.generic.conda.patch
-install -m=0644 -T condor_config.patched ${PREFIX}/etc/condor/condor_config
+CONDOR_CONFIG_LOCATION="etc/condor/condor_config"
+install -m=0644 -T ${RECIPE_DIR}/condor_config ${PREFIX}/${CONDOR_CONFIG_LOCATION}
 
 # -- create activate/deactivate scripts
 
@@ -65,7 +64,7 @@ mkdir -p $(dirname ${ACTIVATE_SH})
 cat > ${ACTIVATE_SH} << EOF
 #!/bin/bash
 export CONDA_BACKUP_CONDOR_CONFIG="\${CONDOR_CONFIG:-empty}"
-export CONDOR_CONFIG="/opt/anaconda1anaconda2anaconda3/etc/condor/condor_config"
+export CONDOR_CONFIG="/opt/anaconda1anaconda2anaconda3/${CONDOR_CONFIG_LOCATION}"
 EOF
 
 # deactivate.sh
