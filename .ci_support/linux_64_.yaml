@@ -17,7 +17,7 @@ cxx_compiler_version:
 docker_image:
 - condaforge/linux-anvil-cos7-x86_64
 expat:
-- '2.2'
+- '2.3'
 krb5:
 - 1.17.1
 libcurl:
