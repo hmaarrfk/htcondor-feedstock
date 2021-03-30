@@ -17,7 +17,7 @@ cxx_compiler_version:
 docker_image:
 - condaforge/linux-anvil-cos7-x86_64
 expat:
-- '2.2'
+- '2'
 krb5:
 - 1.17.1
 libcurl:
@@ -35,8 +35,6 @@ perl:
 pin_run_as_build:
   boost:
     max_pin: x.x.x
-  expat:
-    max_pin: x.x
   krb5:
     max_pin: x.x
   libcurl:
