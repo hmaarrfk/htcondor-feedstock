@@ -160,13 +160,11 @@ outputs:
         - {{ pin_subpackage("libcondor_utils", exact=True) }}
         - libuuid  # [unix]
         - libgomp  # [linux]
-        - voms
       run:
         - {{ pin_subpackage("htcondor-classads", exact=True) }}
         - {{ pin_subpackage("libcondor_utils", exact=True) }}
         - libcurl
         - libuuid  # [unix]
-        - voms
     files:
       - bin/condor*
       - bin/*gahp
