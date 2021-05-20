@@ -295,6 +295,7 @@ about:
     completion.
 
 extra:
+  feedstock-name: htcondor
   recipe-maintainers:
     - duncanmmacleod
     - jasoncpatton
