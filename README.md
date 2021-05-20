@@ -1,5 +1,5 @@
-About htcondor-build
-====================
+About htcondor
+==============
 
 Home: http://htcondor.org/
 
@@ -76,10 +76,10 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libcondor_utils-green.svg)](https://anaconda.org/conda-forge/libcondor_utils) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcondor_utils.svg)](https://anaconda.org/conda-forge/libcondor_utils) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcondor_utils.svg)](https://anaconda.org/conda-forge/libcondor_utils) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcondor_utils.svg)](https://anaconda.org/conda-forge/libcondor_utils) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-python--htcondor-green.svg)](https://anaconda.org/conda-forge/python-htcondor) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/python-htcondor.svg)](https://anaconda.org/conda-forge/python-htcondor) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/python-htcondor.svg)](https://anaconda.org/conda-forge/python-htcondor) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/python-htcondor.svg)](https://anaconda.org/conda-forge/python-htcondor) |
 
-Installing htcondor-build
-=========================
+Installing htcondor
+===================
 
-Installing `htcondor-build` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `htcondor` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
@@ -137,17 +137,17 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating htcondor-build-feedstock
-=================================
+Updating htcondor-feedstock
+===========================
 
-If you would like to improve the htcondor-build recipe or build a new
+If you would like to improve the htcondor recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/htcondor-build-feedstock are
+Note that all branches in the conda-forge/htcondor-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks and branches in the main repository should only be used to
 build distinct package versions.
