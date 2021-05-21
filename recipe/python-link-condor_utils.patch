@@ -1,5 +1,5 @@
 diff --git a/src/python-bindings/CMakeLists.txt b/src/python-bindings/CMakeLists.txt
-index 8f30ecde73..02d0559279 100644
+index eb2b84bb01..aa587f42dc 100644
 --- a/src/python-bindings/CMakeLists.txt
 +++ b/src/python-bindings/CMakeLists.txt
 @@ -1,6 +1,9 @@
@@ -99,7 +99,7 @@ index 8f30ecde73..02d0559279 100644
        set_target_properties( htcondor PROPERTIES PREFIX "" )
        set_target_properties( htcondor PROPERTIES SUFFIX "${PYTHON_MODULE_SUFFIX}" )
        if ( NOT CMAKE_SKIP_RPATH )
-@@ -339,7 +342,7 @@ else()
+@@ -334,7 +337,7 @@ else()
        endif()
        condor_shared_lib( py3classad classad.cpp classad_wrapper.h exprtree_wrapper.h exception_utils.cpp classad_exceptions.cpp )
        target_include_directories( py3classad PUBLIC ${PYTHON3_INCLUDE_DIRS} )
@@ -108,7 +108,7 @@ index 8f30ecde73..02d0559279 100644
        set_target_properties( py3classad PROPERTIES OUTPUT_NAME "${PY3CLASSAD_LIB_NAME}" )
        set_target_properties( py3classad PROPERTIES COMPILE_FLAGS "-fPIC")
  
-@@ -357,7 +360,7 @@ else()
+@@ -352,7 +355,7 @@ else()
        # python functions.
        add_library( classad_python3_user SHARED classad_python_user.cpp )
        target_include_directories( classad_python3_user PUBLIC ${PYTHON3_INCLUDE_DIRS} )
@@ -117,16 +117,16 @@ index 8f30ecde73..02d0559279 100644
        set_target_properties( classad_python3_user PROPERTIES OUTPUT_NAME classad_python_user )
        set_target_properties( classad_python3_user PROPERTIES SUFFIX "${PYTHON3_MODULE_SUFFIX}" )
        if ( NOT CMAKE_SKIP_RPATH )
-@@ -369,7 +372,7 @@ else()
+@@ -368,7 +371,7 @@ else()
          # This is to be used as a collector plugin module which invoke python functions.
          add_library( collector_python3_plugin SHARED collector_plugin.cpp )
          target_include_directories( collector_python3_plugin PUBLIC ${PYTHON3_INCLUDE_DIRS} )
 -        target_link_libraries( collector_python3_plugin condor_utils py3classad )
 +        target_link_libraries( collector_python3_plugin ${UTILS_LIB_NAME} py3classad )
- 	set_target_properties( collector_python3_plugin PROPERTIES OUTPUT_NAME collector_python_plugin )
+         set_target_properties( collector_python3_plugin PROPERTIES OUTPUT_NAME collector_python_plugin )
          set_target_properties( collector_python3_plugin PROPERTIES SUFFIX "${PYTHON3_MODULE_SUFFIX}" )
          if ( NOT CMAKE_SKIP_RPATH )
-@@ -383,7 +386,7 @@ else()
+@@ -386,7 +389,7 @@ else()
        # We should probably deprecate log_reader.cpp (shortly after we deprecate event.cpp).
        add_library( py3htcondor SHARED htcondor.cpp ${HTCONDOR_BINDINGS_SOURCES} log_reader.cpp )
        target_include_directories( py3htcondor PUBLIC ${PYTHON3_INCLUDE_DIRS} )
@@ -135,7 +135,7 @@ index 8f30ecde73..02d0559279 100644
        set_target_properties( py3htcondor PROPERTIES PREFIX "" OUTPUT_NAME htcondor )
        set_target_properties( py3htcondor PROPERTIES SUFFIX "${PYTHON3_MODULE_SUFFIX}" )
        if ( NOT CMAKE_SKIP_RPATH )
-@@ -419,7 +422,7 @@ else()
+@@ -422,7 +425,7 @@ else()
  
        # build libpyclassad *not* linked against libpython
        add_library( wheel_pyclassad SHARED classad.cpp classad_wrapper.h exprtree_wrapper.h exception_utils.cpp classad_exceptions.cpp )
@@ -144,7 +144,7 @@ index 8f30ecde73..02d0559279 100644
        if ( DARWIN )
          set_target_properties( wheel_pyclassad PROPERTIES SUFFIX ".dylib" )
          set_target_properties( wheel_pyclassad PROPERTIES INSTALL_NAME_DIR "${WHEEL_BINARY_DIR}/htcondor/htcondor_libs" )
-@@ -442,7 +445,7 @@ else()
+@@ -445,7 +448,7 @@ else()
        # finally, build the htcondor module *not* linked against libpython
        # See note above about deprecating log_reader.cpp.
        add_library( wheel_htcondor SHARED htcondor.cpp ${HTCONDOR_BINDINGS_SOURCES} log_reader.cpp )
