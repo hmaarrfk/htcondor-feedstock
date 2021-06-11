@@ -55,7 +55,7 @@ requirements:
     - gct  # [linux]
     - krb5
     - libcurl
-    - libuuid  # [unix]
+    - libuuid  # [linux]
     - libxml2
     - munge  # [linux]
     - openldap
@@ -220,7 +220,7 @@ outputs:
     build:
       ignore_run_exports:
         - gct  # [linux]
-        - libuuid
+        - libuuid  # [linux]
         - pcre
         - python
     requirements:
@@ -234,7 +234,7 @@ outputs:
         - gct  # [linux]
         - {{ pin_subpackage('libcondor_utils', exact=True) }}
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
-        - libuuid  # [unix]
+        - libuuid  # [linux]
         - munge  # [linux]
         - pcre
         - python
