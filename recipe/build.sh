@@ -16,14 +16,12 @@ if [ "$(uname)" == "Linux" ]; then
 fi
 
 # configure
-cmake $SRC_DIR \
+cmake \
+	$SRC_DIR \
+	${CMAKE_ARGS} \
 	-D_VERBOSE:BOOL=TRUE \
 	-DBUILD_SHARED_LIBS:BOOL=TRUE \
 	-DBUILD_TESTING:BOOL=FALSE \
-	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
-	-DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
-	-DCMAKE_INSTALL_LIBDIR:PATH="lib" \
-	-DCMAKE_INSTALL_PREFIX:PATH="${PREFIX}" \
 	-DDLOPEN_SECURITY_LIBS:BOOL=FALSE \
 	-DDLOPEN_GSI_LIBS:BOOL=FALSE \
 	-DENABLE_JAVA_TESTS:BOOL=FALSE \
@@ -46,10 +44,10 @@ cmake $SRC_DIR \
 	-DWITH_VOMS:BOOL=TRUE
 
 # build
-cmake --build . --parallel ${CPU_COUNT}
+cmake --build . --parallel ${CPU_COUNT} --verbose
 
 # install
-cmake --build . --parallel ${CPU_COUNT} --target install
+cmake --build . --parallel ${CPU_COUNT} --verbose --target install
 
 # -- create the condor_config file
 

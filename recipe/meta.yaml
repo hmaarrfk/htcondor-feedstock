@@ -124,13 +124,13 @@ outputs:
         - gct
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
+        - libgomp  # [linux]
         - libuuid  # [linux]
         - munge
         - openssl
         - pcre
         - scitokens-cpp >=0.5.0
         - voms
-        - libgomp  # [linux]
       run:
         - gct
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
