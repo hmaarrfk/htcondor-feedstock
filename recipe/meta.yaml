@@ -163,13 +163,16 @@ outputs:
         - {{ cdt('libselinux') }}  # [linux]
         - {{ pin_subpackage("htcondor-classads", exact=True) }}
         - {{ pin_subpackage("libcondor_utils", exact=True) }}
+        - libcurl
         - libuuid  # [unix]
         - libgomp  # [linux]
+        - openssl
       run:
         - {{ pin_subpackage("htcondor-classads", exact=True) }}
         - {{ pin_subpackage("libcondor_utils", exact=True) }}
         - libcurl
         - libuuid  # [unix]
+        - openssl
     files:
       - bin/condor*
       - bin/*gahp
@@ -181,6 +184,7 @@ outputs:
       - lib/*.jar
       - lib/libcondorapi*
       - lib/libchirp*
+      - libexec/condor/*
       - man/man1/condor*.1
     test:
       commands:
