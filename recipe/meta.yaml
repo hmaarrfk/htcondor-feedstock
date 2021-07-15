@@ -1,5 +1,5 @@
 {% set name = "htcondor" %}
-{% set version = "9_0_1" %}
+{% set version = "9_1_0" %}
 
 package:
   # the top-level package should be called `htcondor`, but
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/V{{ version }}.tar.gz
-  sha256: 61b630de25df46e0a202665d7918dc478eeeb1e66cd915a81b67250d8691402a
+  sha256: 1cb151d052a9c6c43e2d98ff631caac9af3e3df2f9d71e651c96b60f83552443
   patches:
     # don't build daemons
     - no-daemons.patch
@@ -30,11 +30,14 @@ source:
     # enable scitokens without dlopen
     # ref: https://github.com/htcondor/htcondor/pull/187
     - scitokens-no-dlopen.patch
+    # fix PerfCounter when building w/o cgroups
+    # ref: https://github.com/htcondor/htcondor/commit/f459be
+    - perf-counter.patch
 
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 1
+  number: 0
   skip: true  # [not linux]
 
 requirements:
