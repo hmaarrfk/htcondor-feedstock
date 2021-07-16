@@ -1,5 +1,5 @@
 {% set name = "htcondor" %}
-{% set version = "9_0_1" %}
+{% set version = "9_0_2" %}
 
 package:
   # the top-level package should be called `htcondor`, but
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/V{{ version }}.tar.gz
-  sha256: 61b630de25df46e0a202665d7918dc478eeeb1e66cd915a81b67250d8691402a
+  sha256: 44bd20eee32bdfa8305f09481a7abd5b69673a4292237f06354025482952ce66
   patches:
     # don't build daemons
     - no-daemons.patch
@@ -27,14 +27,11 @@ source:
     - man-directory.patch
     # don't rebuild condor_utils for python bindings
     - python-link-condor_utils.patch
-    # enable scitokens without dlopen
-    # ref: https://github.com/htcondor/htcondor/pull/187
-    - scitokens-no-dlopen.patch
 
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 1
+  number: 0
   skip: true  # [not linux]
 
 requirements:
