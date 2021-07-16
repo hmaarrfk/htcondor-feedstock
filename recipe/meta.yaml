@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/V{{ version }}.tar.gz
-  sha256: 756f4cd9ed189cdc9e954429b5025876e1cef4ee450cfa8231f9ce385335bf2c
+  sha256: 44bd20eee32bdfa8305f09481a7abd5b69673a4292237f06354025482952ce66
   patches:
     # don't build daemons
     - no-daemons.patch
@@ -27,9 +27,6 @@ source:
     - man-directory.patch
     # don't rebuild condor_utils for python bindings
     - python-link-condor_utils.patch
-    # enable scitokens without dlopen
-    # ref: https://github.com/htcondor/htcondor/pull/187
-    - scitokens-no-dlopen.patch
 
 build:
   error_overdepending: true
