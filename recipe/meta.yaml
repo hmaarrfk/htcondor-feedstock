@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/V{{ version }}.tar.gz
-  sha256: ba10bc1bc68b550d0062ce2ec9e8232c0b374ee1d6a8a40021372a378eeaae66
+  sha256: ba10bc1bc68b550d0062ce2ec9e8232c0b374ee1d6a8a40021372a378eeaa8fe
   patches:
     # don't build daemons
     - no-daemons.patch
