@@ -1,5 +1,5 @@
 {% set name = "htcondor" %}
-{% set version = "9_1_3" %}
+{% set version = "9_2_0" %}
 
 package:
   # the top-level package should be called `htcondor`, but
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/V{{ version }}.tar.gz
-  sha256: ba94c842bb169470e1db88e7bc86453c90ffe932e7f86a69b6cd7f7747abd076
+  sha256: 1419e558f9d3fc2cf5676861712e3eacd770b2705ad9a4805326d7ab7f4a7440
   patches:
     # don't build daemons
     - no-daemons.patch
