@@ -1,1 +1,4 @@
+bot:
+  abi_migration_branches:
+   - v9.0.x
 conda_forge_output_validation: true
