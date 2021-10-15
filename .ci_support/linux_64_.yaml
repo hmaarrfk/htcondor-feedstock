@@ -7,7 +7,7 @@ c_compiler_version:
 cdt_name:
 - cos7
 channel_sources:
-- conda-forge,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
@@ -23,7 +23,7 @@ krb5:
 libcurl:
 - '7'
 libuuid:
-- 2.32.1
+- '2'
 libxml2:
 - '2.9'
 openssl:
@@ -43,8 +43,6 @@ pin_run_as_build:
     max_pin: x
   libxml2:
     max_pin: x.x
-  openssl:
-    max_pin: x.x.x
   perl:
     max_pin: x.x.x
   python:
@@ -53,7 +51,6 @@ pin_run_as_build:
   sqlite:
     max_pin: x
 python:
-- 3.6.* *_cpython
 - 3.7.* *_cpython
 - 3.8.* *_cpython
 - 3.9.* *_cpython
