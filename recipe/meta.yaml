@@ -43,6 +43,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - cmake
+    - llvm-openmp  # [osx]
     - make  # [unix]
     - perl
     - pkg-config  # [unix]
@@ -121,12 +122,14 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+        - llvm-openmp  # [osx]
       host:
         - gct  # [linux]
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
         - libgomp  # [linux]
         - libuuid  # [linux]
+        - llvm-openmp  # [osx]
         - munge  # [linux]
         - openssl
         - pcre
@@ -136,6 +139,7 @@ outputs:
         - gct  # [linux]
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
+        - llvm-openmp  # [osx]
         - munge  # [linux]
         - openssl
         - pcre
@@ -160,6 +164,7 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+        - llvm-openmp  # [osx]
       host:
         - {{ cdt('libselinux') }}  # [linux]
         - {{ pin_subpackage("htcondor-classads", exact=True) }}
@@ -167,12 +172,14 @@ outputs:
         - libcurl
         - libuuid  # [unix]
         - libgomp  # [linux]
+        - llvm-openmp  # [osx]
         - openssl
       run:
         - {{ pin_subpackage("htcondor-classads", exact=True) }}
         - {{ pin_subpackage("libcondor_utils", exact=True) }}
         - libcurl
         - libuuid  # [unix]
+        - llvm-openmp  # [osx]
         - openssl
     files:
       - bin/condor*
