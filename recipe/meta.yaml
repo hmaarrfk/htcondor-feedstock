@@ -166,6 +166,11 @@ outputs:
       description: Just the HTCondor libcondor_utils shared object library.
 
   - name: htcondor-utils
+    build:
+      ignore_run_exports:
+        # this is just here to help the solver
+        # through a difficult openssl 3 migration
+        - openssl
     requirements:
       build:
         - {{ compiler('c') }}
@@ -179,6 +184,7 @@ outputs:
         - libuuid  # [linux]
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
+        - openssl
       run:
         - {{ pin_subpackage("htcondor-classads", exact=True) }}
         - {{ pin_subpackage("libcondor_utils", exact=True) }}
