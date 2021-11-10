@@ -1,0 +1,76 @@
+diff --git a/src/classad/CMakeLists.txt b/src/classad/CMakeLists.txt
+index b195ba9581..090a463d73 100644
+--- a/src/classad/CMakeLists.txt
++++ b/src/classad/CMakeLists.txt
+@@ -131,10 +131,10 @@ if (LINUX OR DARWIN)
+   target_link_libraries( classad "${PCRE_FOUND};${CMAKE_DL_LIBS}" )
+   install( TARGETS classad DESTINATION ${C_LIB_PUBLIC} )
+ endif()
+-if ( DARWIN )
+-  set_target_properties( classad PROPERTIES INSTALL_NAME_DIR ${CMAKE_CURRENT_BINARY_DIR}/lib )
+-  install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_LIB_PUBLIC}/libclassad.${PACKAGE_VERSION}.dylib)" )
+-endif()
++#if ( DARWIN )
++#  set_target_properties( classad PROPERTIES INSTALL_NAME_DIR ${CMAKE_CURRENT_BINARY_DIR}/lib )
++#  install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_LIB_PUBLIC}/libclassad.${PACKAGE_VERSION}.dylib)" )
++#endif()
+ 
+ if ( LINUX OR DARWIN )
+   # set external reference to the shared library for linux
+diff --git a/src/condor_utils/CMakeLists.txt b/src/condor_utils/CMakeLists.txt
+index d20f91b309..10f5709e16 100644
+--- a/src/condor_utils/CMakeLists.txt
++++ b/src/condor_utils/CMakeLists.txt
+@@ -651,8 +651,8 @@ endif()
+ 
+ if ( DARWIN )
+ 	target_link_libraries( condor_utils ${IOKIT_FOUND} ${COREFOUNDATION_FOUND} resolv )
+-	set_target_properties( condor_utils PROPERTIES INSTALL_NAME_DIR ${CMAKE_CURRENT_BINARY_DIR} )
+-	install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_LIB}/lib${UTILS_LIB_NAME}.dylib)" )
++	#set_target_properties( condor_utils PROPERTIES INSTALL_NAME_DIR ${CMAKE_CURRENT_BINARY_DIR} )
++	#install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_LIB}/lib${UTILS_LIB_NAME}.dylib)" )
+ endif()
+ 
+ ##################################################
+diff --git a/src/python-bindings/CMakeLists.txt b/src/python-bindings/CMakeLists.txt
+index eb2b84bb01..62946014c8 100644
+--- a/src/python-bindings/CMakeLists.txt
++++ b/src/python-bindings/CMakeLists.txt
+@@ -296,12 +296,12 @@ else()
+       install ( TARGETS htcondor DESTINATION ${C_PYTHONARCHLIB}/htcondor )
+       install ( TARGETS classad_module DESTINATION ${C_PYTHONARCHLIB}/classad )
+ 
+-      if ( DARWIN )
+-          set_target_properties( pyclassad PROPERTIES INSTALL_NAME_DIR ${CMAKE_CURRENT_BINARY_DIR} )
+-          install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_LIB}/lib${PYCLASSAD_LIB_NAME}.dylib)" )
+-          install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_PYTHONARCHLIB}/classad/classad${PYTHON_MODULE_SUFFIX})" )
+-          install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_PYTHONARCHLIB}/htcondor/htcondor${PYTHON_MODULE_SUFFIX})" )
+-      endif()
++      #if ( DARWIN )
++      #    set_target_properties( pyclassad PROPERTIES INSTALL_NAME_DIR ${CMAKE_CURRENT_BINARY_DIR} )
++      #    install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_LIB}/lib${PYCLASSAD_LIB_NAME}.dylib)" )
++      #    install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_PYTHONARCHLIB}/classad/classad${PYTHON_MODULE_SUFFIX})" )
++      #    install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_PYTHONARCHLIB}/htcondor/htcondor${PYTHON_MODULE_SUFFIX})" )
++      #endif()
+     endif()
+ 
+     if (DARWIN)
+@@ -396,12 +396,12 @@ else()
+       install ( TARGETS py3htcondor DESTINATION ${C_PYTHON3ARCHLIB}/htcondor )
+       install ( TARGETS py3classad_module DESTINATION ${C_PYTHON3ARCHLIB}/classad )
+ 
+-      if ( DARWIN )
+-          set_target_properties( py3classad PROPERTIES INSTALL_NAME_DIR ${CMAKE_CURRENT_BINARY_DIR} )
+-          install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_LIB}/lib${PYCLASSAD3_LIB_NAME}.dylib)" )
+-          install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_PYTHON3ARCHLIB}/classad/classad${PYTHON3_MODULE_SUFFIX})" )
+-          install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_PYTHON3ARCHLIB}/htcondor/htcondor${PYTHON3_MODULE_SUFFIX})" )
+-      endif()
++      #if ( DARWIN )
++      #    set_target_properties( py3classad PROPERTIES INSTALL_NAME_DIR ${CMAKE_CURRENT_BINARY_DIR} )
++      #    install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_LIB}/lib${PYCLASSAD3_LIB_NAME}.dylib)" )
++      #    install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_PYTHON3ARCHLIB}/classad/classad${PYTHON3_MODULE_SUFFIX})" )
++      #    install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_PYTHON3ARCHLIB}/htcondor/htcondor${PYTHON3_MODULE_SUFFIX})" )
++      #endif()
+     endif()
+ 
+ 
