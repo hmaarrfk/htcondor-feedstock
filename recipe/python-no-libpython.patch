@@ -1,8 +1,16 @@
+commit 56302323465742e0be925e396342db80ce1a1ff3
+Author: Duncan Macleod <duncan.macleod@ligo.org>
+Date:   Wed Nov 10 02:32:33 2021 -0800
+
+    don't link against libpython
+    
+    we don't need to
+
 diff --git a/build/cmake/CondorConfigure.cmake b/build/cmake/CondorConfigure.cmake
-index 6141d382ea..7455b21043 100644
+index 0853167023..db3a6258c1 100644
 --- a/build/cmake/CondorConfigure.cmake
 +++ b/build/cmake/CondorConfigure.cmake
-@@ -214,14 +214,9 @@ message(STATUS "PYTHON_LIB = ${PYTHON_LIB}")
+@@ -214,14 +214,14 @@ message(STATUS "PYTHON_LIB = ${PYTHON_LIB}")
  				set(PYTHON3_LIB "libpython${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}.dylib")
  			endif()
  
@@ -13,15 +21,19 @@ index 6141d382ea..7455b21043 100644
 -            if(EXISTS "${PYTHON3_LIBDIR}/${PYTHON3_MULTIARCH}/${PYTHON3_LIB}")
 -                set(PYTHON3_LIBRARIES "${PYTHON3_LIBDIR}/${PYTHON3_MULTIARCH}/${PYTHON3_LIB}")
 -                set(PYTHON3LIBS_FOUND TRUE)
--            endif()
-+            # we don't want to actually link against libpython
-+            set(PYTHON3_LIBRARIES "")
++            # in conda builds we don't want to actually link against libpython
++            if ( ${OS_NAME} STREQUAL "DARWIN" )
++              set(PYTHON3_LIBRARIES "-undefined dynamic_lookup")
++            else()
++              set(PYTHON3_LIBRARIES "")
+             endif()
 +            set(PYTHON3LIBS_FOUND TRUE)
++
              set(PYTHON3_INCLUDE_PATH "${PYTHON3_INCLUDE_DIRS}")
              set(PYTHON3LIBS_VERSION_STRING "${PYTHON3_VERSION_STRING}")
              set(PYTHON3_MODULE_SUFFIX "${PYTHON3_MODULE_EXTENSION}")
 diff --git a/src/python-bindings/CMakeLists.txt b/src/python-bindings/CMakeLists.txt
-index 8f30ecde73..3de3a2d1ce 100644
+index eb2b84bb01..b1d48fd381 100644
 --- a/src/python-bindings/CMakeLists.txt
 +++ b/src/python-bindings/CMakeLists.txt
 @@ -122,7 +122,6 @@ if(WINDOWS)
@@ -32,7 +44,7 @@ index 8f30ecde73..3de3a2d1ce 100644
  				string(REGEX REPLACE "([0-9]+[.][0-9]+).*" "\\1" _PYTHON_VERSION ${PYTHON3_VERSION_STRING})
  				if ( ${PACKAGE_VERSION} MATCHES "([0-9]+)[.]([0-9]+)[.]([0-9]+)" )
  				  set( PY3CLASSAD_LIB_NAME "pyclassad${_PYTHON_VERSION}_${CMAKE_MATCH_1}_${CMAKE_MATCH_2}_${CMAKE_MATCH_3}" )
-@@ -330,7 +329,6 @@ else()
+@@ -325,7 +324,6 @@ else()
        include_directories(${BOOST_INCLUDE})
        link_directories(${BOOST_LD})
  

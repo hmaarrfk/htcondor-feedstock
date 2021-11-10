@@ -7,7 +7,7 @@ index a1135e5c9e..813bc7be92 100644
  set( C_INCLUDE		include)
  set( C_INCLUDE_PUBLIC		include)
 -set( C_MAN			man)
-+set( C_MAN			man/man1)
++set( C_MAN			share/man/man1)
  set( C_SRC			src)
  set( C_SQL			sql)
  set( C_SERVICES     services)

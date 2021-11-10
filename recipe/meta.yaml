@@ -17,28 +17,35 @@ source:
     - no-daemons.patch
     # set C_PYTHONARCHLIB for python
     - python-archlib.patch
-    # use RPATH, not RUNPATH
-    - rpath.patch
     # set install paths
     - paths.patch
     # don't link libpython
     - python-no-libpython.patch
     # fix man directory
     - man-directory.patch
+    # set section 7 for classads manpage
+    - man-classads.patch
     # don't rebuild condor_utils for python bindings
     - python-link-condor_utils.patch
+    # use conda openssl libraries
+    - osx-openssl.patch  # [osx]
+    # remove unused variable on macos
+    - unused-onestring.patch  # [osx]
+    # don't rewrite libs on macos
+    - no-macosx_rewrite_libs.patch  # [osx]
 
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 1
-  skip: true  # [not linux]
+  number: 2
+  skip: true  # [win]
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - cmake
+    - llvm-openmp  # [osx]
     - make  # [unix]
     - perl
     - pkg-config  # [unix]
@@ -48,18 +55,19 @@ requirements:
     - {{ cdt('libselinux') }}  # [linux]
     - boost
     - expat
-    - gct
+    - gct  # [linux]
     - krb5
     - libcurl
-    - libuuid  # [unix]
+    - libuuid  # [linux]
     - libxml2
-    - munge
+    - llvm-openmp  # [osx]
+    - munge  # [linux]
     - openldap
     - openssl
     - pcre
     - scitokens-cpp >=0.5.0
     - sqlite
-    - voms
+    - voms  # [linux]
 
 outputs:
   - name: htcondor-classads
@@ -75,9 +83,10 @@ outputs:
       run:
         - pcre
     files:
+      - bin/classad*
       - include/classad
       - lib/libclassad*
-      - bin/classad*
+      - share/man/man*/classad*
     test:
       commands:
         - classad_version
@@ -111,31 +120,37 @@ outputs:
 
   - name: libcondor_utils
     build:
+      ignore_run_exports:
+        # for some reason this isn't actually linked (DMM)
+        - scitokens-cpp  # [osx]
       run_exports:
         - {{ pin_subpackage("libcondor_utils", max_pin="x.x.x") }}
     requirements:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+        - llvm-openmp  # [osx]
       host:
-        - gct
+        - gct  # [linux]
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
         - libgomp  # [linux]
         - libuuid  # [linux]
-        - munge
+        - llvm-openmp  # [osx]
+        - munge  # [linux]
         - openssl
         - pcre
         - scitokens-cpp >=0.5.0
-        - voms
+        - voms  # [linux]
       run:
-        - gct
+        - gct  # [linux]
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
-        - munge
+        - llvm-openmp  # [osx]
+        - munge  # [linux]
         - openssl
         - pcre
-        - voms
+        - voms  # [linux]
     files:
       - lib/libcondor_utils*
     test:
@@ -152,24 +167,31 @@ outputs:
       description: Just the HTCondor libcondor_utils shared object library.
 
   - name: htcondor-utils
+    build:
+      ignore_run_exports:
+        # this is just here to help the solver
+        # through a difficult openssl 3 migration
+        - openssl
     requirements:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+        - llvm-openmp  # [osx]
       host:
         - {{ cdt('libselinux') }}  # [linux]
         - {{ pin_subpackage("htcondor-classads", exact=True) }}
         - {{ pin_subpackage("libcondor_utils", exact=True) }}
         - libcurl
-        - libuuid  # [unix]
+        - libuuid  # [linux]
         - libgomp  # [linux]
+        - llvm-openmp  # [osx]
         - openssl
       run:
         - {{ pin_subpackage("htcondor-classads", exact=True) }}
         - {{ pin_subpackage("libcondor_utils", exact=True) }}
         - libcurl
-        - libuuid  # [unix]
-        - openssl
+        - libuuid  # [linux]
+        - llvm-openmp  # [osx]
     files:
       - bin/condor*
       - bin/*gahp
@@ -182,7 +204,7 @@ outputs:
       - lib/libcondorapi*
       - lib/libchirp*
       - libexec/condor/*
-      - man/man1/condor*.1
+      - share/man/man1/condor*.1
     test:
       commands:
         # check executables
@@ -215,8 +237,9 @@ outputs:
     script: install-python.sh
     build:
       ignore_run_exports:
-        - gct
-        - libuuid
+        - gct  # [linux]
+        - libuuid  # [linux]
+        - openssl
         - pcre
         - python
     requirements:
@@ -227,11 +250,12 @@ outputs:
         - pkg-config  # [unix]
       host:
         - boost
-        - gct
+        - gct  # [linux]
         - {{ pin_subpackage('libcondor_utils', exact=True) }}
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
-        - libuuid  # [unix]
-        - munge
+        - libuuid  # [linux]
+        - munge  # [linux]
+        - openssl
         - pcre
         - python
         - setuptools
@@ -241,16 +265,29 @@ outputs:
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - python
     test:
-      imports:
-        - htcondor
-        - classad
       requires:
+        - htcondor-utils
         - pip
+        - pytest
+        - pytest-httpserver
+      source_files:
+        - src/condor_tests/conftest.py
+        - src/condor_tests/ornithology/
+        - src/condor_tests/test_htcondor_dags/
+        - src/condor_tests/test_python_bindings_classad.py
       commands:
         # check that the pip recognises that package is already installed
         # mainly by asking pip to install it again, and making sure it doesn't
         # do anything
         - python -m pip install --no-deps --index-url nothing {{ name }}
+        # run tests
+        - python -m pytest src/condor_tests/
+      imports:
+        - classad
+        - htcondor
+        - htcondor.dags
+        - htcondor.htchirp
+        - htcondor.personal
     about:
       home: http://htcondor.org/
       doc_url: https://htcondor.readthedocs.io/

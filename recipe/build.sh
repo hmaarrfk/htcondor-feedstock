@@ -6,14 +6,22 @@ rm -rf ${_builddir}
 mkdir -pv ${_builddir}
 pushd ${_builddir}
 
-# add globus header directory to include path
-CFLAGS="$(pkg-config --cflags-only-I globus-common) ${CFLAGS} "
-CXXFLAGS="$(pkg-config --cflags-only-I globus-common) ${CXXFLAGS}"
-
-# link libdl
+# platform-specific options
 if [ "$(uname)" == "Linux" ]; then
 	export LDFLAGS="-ldl -lrt ${LDFLAGS}"
+
+	WITH_GLOBUS="TRUE"
+	WITH_MUNGE="TRUE"
+
+	# add globus header directory to include path
+	CFLAGS="$(pkg-config --cflags-only-I globus-common) ${CFLAGS} "
+	CXXFLAGS="$(pkg-config --cflags-only-I globus-common) ${CXXFLAGS}"
+else
+	# these attempt to use find_so_name, which fails
+	WITH_GLOBUS="FALSE"
+	WITH_MUNGE="FALSE"
 fi
+WITH_VOMS="${WITH_GLOBUS}"
 
 # configure
 cmake \
@@ -27,21 +35,25 @@ cmake \
 	-DENABLE_JAVA_TESTS:BOOL=FALSE \
 	-DHAVE_BOINC:BOOL=FALSE \
 	-DPROPER:BOOL=TRUE \
-	-DPYTHON_EXECUTABLE:PATH=FALSE \
-	-DPYTHON3_EXECUTABLE:PATH=FALSE \
+	-DPYTHON_EXECUTABLE:FILEPATH=FALSE \
+	-DPYTHON3_EXECUTABLE:FILEPATH=FALSE \
 	-DUW_BUILD:BOOL=FALSE \
+	-DWANT_CONTRIB:BOOL=FALSE \
 	-DWANT_FULL_DEPLOYMENT:BOOL=FALSE \
 	-DWANT_MAN_PAGES:BOOL=TRUE \
 	-DWITH_BLAHP:BOOL=FALSE \
 	-DWITH_BOINC:BOOL=FALSE \
+	-DWITH_BOSCO:BOOL=FALSE \
+	-DWITH_CAMPUSFACTORY:BOOL=FALSE \
 	-DWITH_CREAM:BOOL=FALSE \
 	-DWITH_GANGLIA:BOOL=TRUE \
-	-DWITH_GLOBUS:BOOL=TRUE \
+	-DWITH_GLOBUS:BOOL=${WITH_GLOBUS} \
 	-DWITH_KRB5:BOOL=TRUE \
-	-DWITH_MUNGE:BOOL=TRUE \
+	-DWITH_MUNGE:BOOL=${WITH_MUNGE} \
 	-DWITH_PYTHON_BINDINGS:BOOL=FALSE \
 	-DWITH_SCITOKENS:BOOL=TRUE \
-	-DWITH_VOMS:BOOL=TRUE
+	-DWITH_VOMS:BOOL=${WITH_VOMS} \
+;
 
 # build
 cmake --build . --parallel ${CPU_COUNT} --verbose
@@ -49,10 +61,16 @@ cmake --build . --parallel ${CPU_COUNT} --verbose
 # install
 cmake --build . --parallel ${CPU_COUNT} --verbose --target install
 
+# -- POST
+
+# move the man page for classads into the right directory
+mkdir -p ${PREFIX}/share/man/man7/
+mv ${PREFIX}/share/man/man1/classads.7 ${PREFIX}/share/man/man7/
+
 # -- create the condor_config file
 
 CONDOR_CONFIG_LOCATION="etc/condor/condor_config"
-install -m=0644 -T ${RECIPE_DIR}/condor_config ${PREFIX}/${CONDOR_CONFIG_LOCATION}
+install -m 0644 ${RECIPE_DIR}/condor_config ${PREFIX}/${CONDOR_CONFIG_LOCATION}
 
 # -- create activate/deactivate scripts
 
