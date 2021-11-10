@@ -262,16 +262,29 @@ outputs:
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - python
     test:
-      imports:
-        - htcondor
-        - classad
       requires:
+        - htcondor-utils
         - pip
+        - pytest
+        - pytest-httpserver
+      source_files:
+        - src/condor_tests/conftest.py
+        - src/condor_tests/ornithology/
+        - src/condor_tests/test_htcondor_dags/
+        - src/condor_tests/test_python_bindings_classad.py
       commands:
         # check that the pip recognises that package is already installed
         # mainly by asking pip to install it again, and making sure it doesn't
         # do anything
         - python -m pip install --no-deps --index-url nothing {{ name }}
+        # run tests
+        - python -m pytest src/condor_tests/
+      imports:
+        - classad
+        - htcondor
+        - htcondor.dags
+        - htcondor.htchirp
+        - htcondor.personal
     about:
       home: http://htcondor.org/
       doc_url: https://htcondor.readthedocs.io/
