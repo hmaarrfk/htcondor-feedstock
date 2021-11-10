@@ -177,14 +177,12 @@ outputs:
         - libuuid  # [linux]
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
-        - openssl
       run:
         - {{ pin_subpackage("htcondor-classads", exact=True) }}
         - {{ pin_subpackage("libcondor_utils", exact=True) }}
         - libcurl
         - libuuid  # [linux]
         - llvm-openmp  # [osx]
-        - openssl
     files:
       - bin/condor*
       - bin/*gahp
