@@ -19,14 +19,17 @@ cmake $SRC_DIR \
 	-DHAVE_BOINC:BOOL=FALSE \
 	-DHAVE_EXT_GLOBUS:BOOL=FALSE \
 	-DPROPER:BOOL=TRUE \
-	-DPYTHON_EXECUTABLE:PATH=FALSE \
-	-DPYTHON3_EXECUTABLE:PATH="${PYTHON}" \
+	-DPYTHON_EXECUTABLE:FILEPATH=FALSE \
+	-DPYTHON3_EXECUTABLE:FILEPATH="${PYTHON}" \
 	-DPYTHON3_BOOST_LIB:STRING=boost_python${PY_VER/./} \
 	-DUW_BUILD:BOOL=FALSE \
+	-DWANT_CONTRIB:BOOL=FALSE \
 	-DWANT_FULL_DEPLOYMENT:BOOL=FALSE \
 	-DWANT_MAN_PAGES:BOOL=FALSE \
 	-DWITH_BLAHP:BOOL=FALSE \
 	-DWITH_BOINC:BOOL=FALSE \
+	-DWITH_BOSCO:BOOL=FALSE \
+	-DWITH_CAMPUSFACTORY:BOOL=FALSE \
 	-DWITH_CREAM:BOOL=FALSE \
 	-DWITH_GANGLIA:BOOL=FALSE \
 	-DWITH_GLOBUS:BOOL=FALSE \
@@ -37,9 +40,9 @@ cmake $SRC_DIR \
 	-DWITH_VOMS:BOOL=FALSE
 
 # build
-cmake --build src/python-bindings --parallel ${CPU_COUNT}
-cmake --build bindings/python --parallel ${CPU_COUNT}
+cmake --build src/python-bindings --parallel ${CPU_COUNT} --verbose
+cmake --build bindings/python --parallel ${CPU_COUNT} --verbose
 
 # install
-cmake --build src/python-bindings --parallel ${CPU_COUNT} --target install
-cmake --build bindings/python --parallel ${CPU_COUNT} --target install
+cmake --build src/python-bindings --parallel ${CPU_COUNT} --verbose --target install
+cmake --build bindings/python --parallel ${CPU_COUNT} --verbose --target install
