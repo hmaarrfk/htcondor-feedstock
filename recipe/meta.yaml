@@ -119,6 +119,9 @@ outputs:
 
   - name: libcondor_utils
     build:
+      ignore_run_exports:
+        # for some reason this isn't actually linked (DMM)
+        - scitokens-cpp  # [osx]
       run_exports:
         - {{ pin_subpackage("libcondor_utils", max_pin="x.x.x") }}
     requirements:
