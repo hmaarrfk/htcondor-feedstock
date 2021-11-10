@@ -61,6 +61,12 @@ cmake --build . --parallel ${CPU_COUNT} --verbose
 # install
 cmake --build . --parallel ${CPU_COUNT} --verbose --target install
 
+# -- POST
+
+# move the man page for classads into the right directory
+mkdir -p ${PREFIX}/share/man/man7/
+mv ${PREFIX}/share/man/man1/classads.7 ${PREFIX}/share/man/man7/
+
 # -- create the condor_config file
 
 CONDOR_CONFIG_LOCATION="etc/condor/condor_config"

@@ -23,6 +23,8 @@ source:
     - python-no-libpython.patch
     # fix man directory
     - man-directory.patch
+    # set section 7 for classads manpage
+    - man-classads.patch
     # don't rebuild condor_utils for python bindings
     - python-link-condor_utils.patch
     # use conda openssl libraries
@@ -79,9 +81,10 @@ outputs:
       run:
         - pcre
     files:
+      - bin/classad*
       - include/classad
       - lib/libclassad*
-      - bin/classad*
+      - share/man/man*/classad*
     test:
       commands:
         - classad_version
@@ -199,7 +202,7 @@ outputs:
       - lib/libcondorapi*
       - lib/libchirp*
       - libexec/condor/*
-      - man/man1/condor*.1
+      - share/man/man1/condor*.1
     test:
       commands:
         # check executables
