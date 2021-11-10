@@ -17,8 +17,6 @@ source:
     - no-daemons.patch
     # set C_PYTHONARCHLIB for python
     - python-archlib.patch
-    # use RPATH, not RUNPATH
-    - rpath.patch
     # set install paths
     - paths.patch
     # don't link libpython
