@@ -31,6 +31,8 @@ source:
     - osx-openssl.patch  # [osx]
     # remove unused variable on macos
     - unused-onestring.patch  # [osx]
+    # don't rewrite libs on macos
+    - no-macosx_rewrite_libs.patch  # [osx]
 
 build:
   error_overdepending: true
