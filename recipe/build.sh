@@ -17,9 +17,11 @@ if [ "$(uname)" == "Linux" ]; then
 	CFLAGS="$(pkg-config --cflags-only-I globus-common) ${CFLAGS} "
 	CXXFLAGS="$(pkg-config --cflags-only-I globus-common) ${CXXFLAGS}"
 else
+	# these attempt to use find_so_name, which fails
 	WITH_GLOBUS="FALSE"
 	WITH_MUNGE="FALSE"
 fi
+WITH_VOMS="${WITH_GLOBUS}"
 
 # configure
 cmake \
@@ -47,7 +49,8 @@ cmake \
 	-DWITH_MUNGE:BOOL=${WITH_MUNGE} \
 	-DWITH_PYTHON_BINDINGS:BOOL=FALSE \
 	-DWITH_SCITOKENS:BOOL=TRUE \
-	-DWITH_VOMS:BOOL=TRUE
+	-DWITH_VOMS:BOOL=${WITH_VOMS} \
+;
 
 # build
 cmake --build . --parallel ${CPU_COUNT} --verbose
