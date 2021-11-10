@@ -58,6 +58,7 @@ requirements:
     - libcurl
     - libuuid  # [linux]
     - libxml2
+    - llvm-openmp  # [osx]
     - munge  # [linux]
     - openldap
     - openssl
