@@ -7,7 +7,7 @@ c_compiler:
 c_compiler_version:
 - '11'
 channel_sources:
-- conda-forge,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
@@ -22,6 +22,8 @@ libcurl:
 - '7'
 libxml2:
 - '2.9'
+llvm_openmp:
+- '11'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 openssl:
@@ -29,7 +31,7 @@ openssl:
 pcre:
 - '8'
 perl:
-- 5.26.2
+- 5.32.1
 pin_run_as_build:
   boost:
     max_pin: x.x.x
@@ -39,17 +41,13 @@ pin_run_as_build:
     max_pin: x
   libxml2:
     max_pin: x.x
-  openssl:
-    max_pin: x.x.x
-  perl:
-    max_pin: x.x.x
   python:
     min_pin: x.x
     max_pin: x.x
   sqlite:
     max_pin: x
 python:
-- 3.6.* *_cpython
+- 3.10.* *_cpython
 - 3.7.* *_cpython
 - 3.8.* *_cpython
 - 3.9.* *_cpython
