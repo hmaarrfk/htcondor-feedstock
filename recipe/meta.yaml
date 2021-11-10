@@ -232,6 +232,7 @@ outputs:
       ignore_run_exports:
         - gct  # [linux]
         - libuuid  # [linux]
+        - openssl
         - pcre
         - python
     requirements:
@@ -247,6 +248,7 @@ outputs:
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - libuuid  # [linux]
         - munge  # [linux]
+        - openssl
         - pcre
         - python
         - setuptools
