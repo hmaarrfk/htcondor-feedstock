@@ -1,5 +1,5 @@
 {% set name = "htcondor" %}
-{% set version = "9_2_0" %}
+{% set version = "9_3_0" %}
 
 package:
   # the top-level package should be called `htcondor`, but
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/V{{ version }}.tar.gz
-  sha256: 1419e558f9d3fc2cf5676861712e3eacd770b2705ad9a4805326d7ab7f4a7440
+  sha256: 18e319d0cc827d0678b5fb5701c00b8e78c9e26ed89be9cc06b19b36bbb2bed5
   patches:
     # don't build daemons
     - no-daemons.patch
@@ -37,7 +37,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 2
+  number: 0
   skip: true  # [win]
 
 requirements:
@@ -55,7 +55,6 @@ requirements:
     - {{ cdt('libselinux') }}  # [linux]
     - boost
     - expat
-    - gct  # [linux]
     - krb5
     - libcurl
     - libuuid  # [linux]
@@ -67,7 +66,6 @@ requirements:
     - pcre
     - scitokens-cpp >=0.5.0
     - sqlite
-    - voms  # [linux]
 
 outputs:
   - name: htcondor-classads
@@ -131,7 +129,6 @@ outputs:
         - {{ compiler('cxx') }}
         - llvm-openmp  # [osx]
       host:
-        - gct  # [linux]
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
         - libgomp  # [linux]
@@ -141,16 +138,13 @@ outputs:
         - openssl
         - pcre
         - scitokens-cpp >=0.5.0
-        - voms  # [linux]
       run:
-        - gct  # [linux]
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
         - llvm-openmp  # [osx]
         - munge  # [linux]
         - openssl
         - pcre
-        - voms  # [linux]
     files:
       - lib/libcondor_utils*
     test:
@@ -237,7 +231,6 @@ outputs:
     script: install-python.sh
     build:
       ignore_run_exports:
-        - gct  # [linux]
         - libuuid  # [linux]
         - openssl
         - pcre
@@ -250,7 +243,6 @@ outputs:
         - pkg-config  # [unix]
       host:
         - boost
-        - gct  # [linux]
         - {{ pin_subpackage('libcondor_utils', exact=True) }}
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - libuuid  # [linux]
