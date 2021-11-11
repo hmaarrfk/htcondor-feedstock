@@ -55,7 +55,6 @@ requirements:
     - {{ cdt('libselinux') }}  # [linux]
     - boost
     - expat
-    - gct  # [linux]
     - krb5
     - libcurl
     - libuuid  # [linux]
@@ -67,7 +66,6 @@ requirements:
     - pcre
     - scitokens-cpp >=0.5.0
     - sqlite
-    - voms  # [linux]
 
 outputs:
   - name: htcondor-classads
@@ -131,7 +129,6 @@ outputs:
         - {{ compiler('cxx') }}
         - llvm-openmp  # [osx]
       host:
-        - gct  # [linux]
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
         - libgomp  # [linux]
@@ -141,16 +138,13 @@ outputs:
         - openssl
         - pcre
         - scitokens-cpp >=0.5.0
-        - voms  # [linux]
       run:
-        - gct  # [linux]
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
         - llvm-openmp  # [osx]
         - munge  # [linux]
         - openssl
         - pcre
-        - voms  # [linux]
     files:
       - lib/libcondor_utils*
     test:
@@ -237,7 +231,6 @@ outputs:
     script: install-python.sh
     build:
       ignore_run_exports:
-        - gct  # [linux]
         - libuuid  # [linux]
         - openssl
         - pcre
@@ -250,7 +243,6 @@ outputs:
         - pkg-config  # [unix]
       host:
         - boost
-        - gct  # [linux]
         - {{ pin_subpackage('libcondor_utils', exact=True) }}
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - libuuid  # [linux]
