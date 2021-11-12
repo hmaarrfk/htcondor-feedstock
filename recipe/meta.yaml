@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/V{{ version }}.tar.gz
-  url: https://research.cs.wisc.edu/htcondor/tarball/stable/{{ version }}/release/condor-{{ version }}-src.tar.gz
+  url: https://research.cs.wisc.edu/htcondor/tarball/{{ version.split('.')[:2] | join('.') }}/{{ version }}/release/condor-{{ version }}-src.tar.gz
   sha256: c807b27ff68f7e280d2467a51b8a523b7ee3de421b95656c7e2803bd14d4a2d9
   patches:
     # don't build daemons
