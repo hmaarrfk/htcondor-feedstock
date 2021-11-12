@@ -10,7 +10,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://research.cs.wisc.edu/htcondor/tarball/current/{{ version }}/release/condor-{{ version }}-src.tar.gz
+  url: https://research.cs.wisc.edu/htcondor/tarball/feature/{{ version }}/release/condor-{{ version }}-src.tar.gz
   sha256: 3ff4c15077773690d325d792f97be4ee05ec0b90cf34d4ed057c4de298ab18fb
   patches:
     # don't build daemons
