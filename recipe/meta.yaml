@@ -1,5 +1,5 @@
 {% set name = "htcondor" %}
-{% set version = "9_3_0" %}
+{% set version = "9.3.0" %}
 
 package:
   # the top-level package should be called `htcondor`, but
@@ -7,11 +7,11 @@ package:
   # we have to rename the top-level package so that conda-build
   # doesn't get confused
   name: {{ name|lower }}-build
-  version: {{ version|replace('_', '.') }}
+  version: {{ version }}
 
 source:
-  url: https://github.com/{{ name }}/{{ name }}/archive/V{{ version }}.tar.gz
-  sha256: 18e319d0cc827d0678b5fb5701c00b8e78c9e26ed89be9cc06b19b36bbb2bed5
+  url: https://research.cs.wisc.edu/htcondor/tarball/current/{{ version }}/release/condor-{{ version }}-src.tar.gz
+  sha256: 3ff4c15077773690d325d792f97be4ee05ec0b90cf34d4ed057c4de298ab18fb
   patches:
     # don't build daemons
     - no-daemons.patch
@@ -149,7 +149,7 @@ outputs:
       - lib/libcondor_utils*
     test:
       commands:
-        - test -f ${PREFIX}/lib/libcondor_utils_{{ version }}${SHLIB_EXT}  # [unix]
+        - test -f ${PREFIX}/lib/libcondor_utils_{{ version|replace('.','_') }}${SHLIB_EXT}  # [unix]
     about:
       home: http://htcondor.org/
       doc_url: https://htcondor.readthedocs.io/
