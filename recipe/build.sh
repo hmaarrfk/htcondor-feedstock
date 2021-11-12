@@ -6,6 +6,12 @@ rm -rf ${_builddir}
 mkdir -pv ${_builddir}
 pushd ${_builddir}
 
+# if cross compiling, unset the _CONDA_PYTHON_SYSCONFIGDATA_NAME variable
+# so that sphinx can use the build-platform's python
+if [[ "${build_platform}" != "${target_platform}" ]]; then
+	unset _CONDA_PYTHON_SYSCONFIGDATA_NAME
+fi
+
 # platform-specific options
 if [ "$(uname)" == "Linux" ]; then
 	export LDFLAGS="-ldl -lrt ${LDFLAGS}"

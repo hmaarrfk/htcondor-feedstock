@@ -42,8 +42,6 @@ build:
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - cmake
@@ -250,6 +248,9 @@ outputs:
         - cmake
         - make  # [unix]
         - pkg-config  # [unix]
+        # extras for cross-compilation
+        - cross-python_{{ target_platform }}  # [build_platform != target_platform]
+        - python                              # [build_platform != target_platform]
       host:
         - boost
         - gct  # [linux]
