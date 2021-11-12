@@ -1,5 +1,5 @@
 {% set name = "htcondor" %}
-{% set version = "9_0_7" %}
+{% set version = "9.0.7" %}
 
 package:
   # the top-level package should be called `htcondor`, but
@@ -7,11 +7,12 @@ package:
   # we have to rename the top-level package so that conda-build
   # doesn't get confused
   name: {{ name|lower }}-build
-  version: {{ version|replace('_', '.') }}
+  version: {{ version }}
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/V{{ version }}.tar.gz
-  sha256: 561a600d8c7848a85c3f46da949300c2f1e90c1e028e574b1760158086f54f35
+  url: https://research.cs.wisc.edu/htcondor/tarball/{{ version.split('.')[:2] | join('.') }}/{{ version }}/release/condor-{{ version }}-src.tar.gz
+  sha256: c807b27ff68f7e280d2467a51b8a523b7ee3de421b95656c7e2803bd14d4a2d9
   patches:
     # don't build daemons
     - no-daemons.patch
@@ -155,7 +156,7 @@ outputs:
       - lib/libcondor_utils*
     test:
       commands:
-        - test -f ${PREFIX}/lib/libcondor_utils_{{ version }}${SHLIB_EXT}  # [unix]
+        - test -f ${PREFIX}/lib/libcondor_utils_{{ version|replace('.','_') }}${SHLIB_EXT}  # [unix]
     about:
       home: http://htcondor.org/
       doc_url: https://htcondor.readthedocs.io/
@@ -248,6 +249,9 @@ outputs:
         - cmake
         - make  # [unix]
         - pkg-config  # [unix]
+        # extras for cross-compilation
+        - cross-python_{{ target_platform }}  # [build_platform != target_platform]
+        - python                              # [build_platform != target_platform]
       host:
         - boost
         - gct  # [linux]
