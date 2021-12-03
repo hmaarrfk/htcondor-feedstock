@@ -1,11 +1,3 @@
-commit 0f63ae485c7b847f438ede899d889ea2d2b3ab8f
-Author: Duncan Macleod <duncan.macleod@ligo.org>
-Date:   Wed Nov 10 01:52:03 2021 -0800
-
-    don't build daemons
-    
-    conda environments won't support them
-
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
 index 3387ed5cf4..9f2dac6603 100644
 --- a/src/CMakeLists.txt
@@ -20,7 +12,7 @@ index 3387ed5cf4..9f2dac6603 100644
  #if (BUILD_TESTING AND NOT WINDOWS)
  if (BUILD_TESTING)
 diff --git a/src/condor_procd/CMakeLists.txt b/src/condor_procd/CMakeLists.txt
-index 9137ff068f..05c256ea3a 100644
+index c270dd619d..b5bb67fbdc 100644
 --- a/src/condor_procd/CMakeLists.txt
 +++ b/src/condor_procd/CMakeLists.txt
 @@ -72,17 +72,5 @@ set( ProcdUtilsSrcs "${SAFE_OPEN_SRC};../condor_utils/condor_pidenvid.cpp;../con
@@ -54,7 +46,7 @@ index 00efb23c6a..d1a154ff53 100644
 -
  set( QMGMT_UTIL_SRCS "${qmgmtElements};${CMAKE_CURRENT_SOURCE_DIR}/qmgmt_common.cpp" PARENT_SCOPE )
 diff --git a/src/condor_scripts/CMakeLists.txt b/src/condor_scripts/CMakeLists.txt
-index eb3bea2239..03ba253c86 100644
+index 7e281375d4..b75d200b88 100644
 --- a/src/condor_scripts/CMakeLists.txt
 +++ b/src/condor_scripts/CMakeLists.txt
 @@ -30,7 +30,6 @@ endif(WINDOWS)
@@ -65,14 +57,14 @@ index eb3bea2239..03ba253c86 100644
      install ( FILES condor_gather_info DESTINATION ${C_BIN} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
      install ( FILES condor_pool_job_report DESTINATION ${C_BIN} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
      install ( FILES make-personal-from-tarball DESTINATION ${C_BIN} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
-@@ -53,7 +52,6 @@ if (NOT WINDOWS)
- 
-     if (LINUX)
-         install ( FILES linux_kernel_tuning DESTINATION ${C_LIBEXEC} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
+@@ -56,7 +55,6 @@ if (NOT WINDOWS)
+         install ( FILES common-cloud-attributes-google.py DESTINATION ${C_LIBEXEC} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
+         install ( FILES common-cloud-attributes-aws.sh DESTINATION ${C_LIBEXEC} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
+         install ( FILES common-cloud-attributes-aws.py DESTINATION ${C_LIBEXEC} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
 -        install ( FILES condor_aklog condor_credmon_krb DESTINATION ${C_SBIN} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
      endif(LINUX)
  
- 	install ( FILES condor_qsub DESTINATION ${C_BIN} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
+     install ( FILES condor_qsub DESTINATION ${C_BIN} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
 diff --git a/src/condor_tools/CMakeLists.txt b/src/condor_tools/CMakeLists.txt
 index 364d000791..43bea561d6 100644
 --- a/src/condor_tools/CMakeLists.txt
