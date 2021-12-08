@@ -66,6 +66,7 @@ requirements:
     - pcre
     - scitokens-cpp >=0.5.0
     - sqlite
+    - voms  # [not win]
 
 outputs:
   - name: htcondor-classads
@@ -138,6 +139,7 @@ outputs:
         - openssl
         - pcre
         - scitokens-cpp >=0.5.0
+        - voms  # [not win]
       run:
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
@@ -145,6 +147,7 @@ outputs:
         - munge  # [linux]
         - openssl
         - pcre
+        - voms  # [not win]
     files:
       - lib/libcondor_utils*
     test:
