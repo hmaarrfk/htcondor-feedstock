@@ -33,6 +33,8 @@ source:
     - unused-onestring.patch  # [osx]
     # don't rewrite libs on macos
     - no-macosx_rewrite_libs.patch  # [osx]
+    # fix for compiling with voms on OSX
+    - voms-osx.patch  # [osx]
 
 build:
   error_overdepending: true

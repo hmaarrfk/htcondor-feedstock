@@ -1,0 +1,18 @@
+diff --git a/externals/bundles/voms/2.0.13/CMakeLists.txt b/externals/bundles/voms/2.0.13/CMakeLists.txt
+index f51e94db72..0aa24a1567 100644
+--- a/externals/bundles/voms/2.0.13/CMakeLists.txt
++++ b/externals/bundles/voms/2.0.13/CMakeLists.txt
+@@ -135,8 +135,11 @@ if ( WITH_VOMS )
+ 	else(NOT PROPER)
+ 
+ 		find_multiple( "vomsapi" VOMS_FOUND)
+-		find_so_name( LIBVOMSAPI_SO ${VOMS_FOUND} )
+-		set( LIBVOMSAPI_SO ${LIBVOMSAPI_SO} PARENT_SCOPE )
++
++		if (DLOPEN_VOMS_LIBS)
++			find_so_name( LIBVOMSAPI_SO ${VOMS_FOUND} )
++			set( LIBVOMSAPI_SO ${LIBVOMSAPI_SO} PARENT_SCOPE )
++		endif(DLOPEN_VOMS_LIBS)
+ 
+ 	endif(NOT PROPER)
+ 
