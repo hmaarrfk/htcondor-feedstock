@@ -1,27 +1,27 @@
 diff --git a/src/classad/CMakeLists.txt b/src/classad/CMakeLists.txt
-index b195ba9581..090a463d73 100644
+index f3b80b5f09..90de01fa31 100644
 --- a/src/classad/CMakeLists.txt
 +++ b/src/classad/CMakeLists.txt
-@@ -131,10 +131,10 @@ if (LINUX OR DARWIN)
+@@ -156,10 +156,10 @@ if (UNIX)
    target_link_libraries( classad "${PCRE_FOUND};${CMAKE_DL_LIBS}" )
    install( TARGETS classad DESTINATION ${C_LIB_PUBLIC} )
  endif()
--if ( DARWIN )
+-if ( APPLE )
 -  set_target_properties( classad PROPERTIES INSTALL_NAME_DIR ${CMAKE_CURRENT_BINARY_DIR}/lib )
 -  install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_LIB_PUBLIC}/libclassad.${PACKAGE_VERSION}.dylib)" )
 -endif()
-+#if ( DARWIN )
++#if ( APPLE )
 +#  set_target_properties( classad PROPERTIES INSTALL_NAME_DIR ${CMAKE_CURRENT_BINARY_DIR}/lib )
 +#  install( CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/src/condor_scripts/macosx_rewrite_libs \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${C_LIB_PUBLIC}/libclassad.${PACKAGE_VERSION}.dylib)" )
 +#endif()
  
- if ( LINUX OR DARWIN )
-   # set external reference to the shared library for linux
+ add_executable( classad_functional_tester "classad_functional_tester.cpp" )
+ target_link_libraries( classad_functional_tester "${CLASSADS_FOUND};${PCRE_FOUND};${CMAKE_DL_LIBS}")
 diff --git a/src/condor_utils/CMakeLists.txt b/src/condor_utils/CMakeLists.txt
-index d20f91b309..10f5709e16 100644
+index 2f99c89f9f..c1e56ea97f 100644
 --- a/src/condor_utils/CMakeLists.txt
 +++ b/src/condor_utils/CMakeLists.txt
-@@ -651,8 +651,8 @@ endif()
+@@ -649,8 +649,8 @@ endif()
  
  if ( DARWIN )
  	target_link_libraries( condor_utils ${IOKIT_FOUND} ${COREFOUNDATION_FOUND} resolv )
@@ -33,7 +33,7 @@ index d20f91b309..10f5709e16 100644
  
  ##################################################
 diff --git a/src/python-bindings/CMakeLists.txt b/src/python-bindings/CMakeLists.txt
-index eb2b84bb01..62946014c8 100644
+index d3636a9586..7ba5d75955 100644
 --- a/src/python-bindings/CMakeLists.txt
 +++ b/src/python-bindings/CMakeLists.txt
 @@ -296,12 +296,12 @@ else()

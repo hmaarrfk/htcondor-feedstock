@@ -1,5 +1,5 @@
 {% set name = "htcondor" %}
-{% set version = "9.3.0" %}
+{% set version = "9.4.0" %}
 
 package:
   # the top-level package should be called `htcondor`, but
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://research.cs.wisc.edu/htcondor/tarball/feature/{{ version }}/release/condor-{{ version }}-src.tar.gz
-  sha256: 3ff4c15077773690d325d792f97be4ee05ec0b90cf34d4ed057c4de298ab18fb
+  sha256: 7bebe532d055c0ad98ab554eeee5902e00936f111a9c993b70f4e62980095902
   patches:
     # don't build daemons
     - no-daemons.patch
@@ -33,6 +33,8 @@ source:
     - unused-onestring.patch  # [osx]
     # don't rewrite libs on macos
     - no-macosx_rewrite_libs.patch  # [osx]
+    # fix for compiling with voms on OSX
+    - voms-osx.patch  # [osx]
 
 build:
   error_overdepending: true
@@ -66,6 +68,7 @@ requirements:
     - pcre
     - scitokens-cpp >=0.5.0
     - sqlite
+    - voms  # [not win]
 
 outputs:
   - name: htcondor-classads
@@ -138,13 +141,16 @@ outputs:
         - openssl
         - pcre
         - scitokens-cpp >=0.5.0
+        - voms  # [not win]
       run:
+        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
         - llvm-openmp  # [osx]
         - munge  # [linux]
         - openssl
         - pcre
+        - voms  # [not win]
     files:
       - lib/libcondor_utils*
     test:
@@ -180,12 +186,14 @@ outputs:
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
         - openssl
+        - voms  # [osx and arm64]
       run:
         - {{ pin_subpackage("htcondor-classads", exact=True) }}
         - {{ pin_subpackage("libcondor_utils", exact=True) }}
         - libcurl
         - libuuid  # [linux]
         - llvm-openmp  # [osx]
+        - voms  # [osx and arm64]
     files:
       - bin/condor*
       - bin/*gahp
