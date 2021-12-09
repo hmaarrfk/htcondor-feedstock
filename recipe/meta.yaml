@@ -143,6 +143,7 @@ outputs:
         - scitokens-cpp >=0.5.0
         - voms  # [not win]
       run:
+        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
         - {{ pin_subpackage('htcondor-classads', exact=True) }}
         - krb5
         - llvm-openmp  # [osx]
