@@ -1,17 +1,19 @@
 diff --git a/build/cmake/CondorPackageConfig.cmake b/build/cmake/CondorPackageConfig.cmake
-index 330e1ab..c41d712 100644
+index fffd51887f..421ce7e43f 100644
 --- a/build/cmake/CondorPackageConfig.cmake
 +++ b/build/cmake/CondorPackageConfig.cmake
-@@ -125,7 +125,7 @@ set( C_BIN			bin)
+@@ -125,8 +125,8 @@ set( C_BIN			bin)
  set( C_LIB			lib)
  set( C_LIB_PUBLIC		lib)
  set( C_LIB32		lib)
 -set( C_LIBEXEC		libexec )
+-set( C_LIBEXEC_BLAHP		libexec )
 +set( C_LIBEXEC		libexec/condor )
++set( C_LIBEXEC_BLAHP		libexec/blahp )
  set( C_SBIN			sbin)
  
  set( C_PYTHONARCHLIB lib/python)
-@@ -139,14 +139,14 @@ set( C_SQL			sql)
+@@ -140,14 +140,14 @@ set( C_SQL			sql)
  set( C_SERVICES     services)
  
  set( C_INIT			etc/init.d )

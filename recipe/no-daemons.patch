@@ -1,5 +1,5 @@
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 3387ed5cf4..9f2dac6603 100644
+index bf7a6281d0..64dfb4a8fd 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
 @@ -24,7 +24,7 @@
@@ -12,7 +12,7 @@ index 3387ed5cf4..9f2dac6603 100644
  #if (BUILD_TESTING AND NOT WINDOWS)
  if (BUILD_TESTING)
 diff --git a/src/condor_procd/CMakeLists.txt b/src/condor_procd/CMakeLists.txt
-index c270dd619d..b5bb67fbdc 100644
+index 7ddf202d16..b5bb67fbdc 100644
 --- a/src/condor_procd/CMakeLists.txt
 +++ b/src/condor_procd/CMakeLists.txt
 @@ -72,17 +72,5 @@ set( ProcdUtilsSrcs "${SAFE_OPEN_SRC};../condor_utils/condor_pidenvid.cpp;../con
@@ -22,15 +22,15 @@ index c270dd619d..b5bb67fbdc 100644
 -condor_static_lib( procdutils "${ProcdUtilsSrcs}" )
 -condor_daemon(EXE condor_procd SOURCES "${ProcdElements};${ProcClientElements}" LIBRARIES "procdutils;${PROCD_WIN_LINK_LIBS};${LIBCGROUP_FOUND}" INSTALL "${C_SBIN}")
 -
--if (LINUX AND WANT_FULL_DEPLOYMENT)
+-if (LINUX)
 -	condor_exe( procd_ctl "procd_ctl.cpp;${ProcClientElements};${SAFE_OPEN_SRC};../condor_utils/distribution.cpp;../condor_utils/my_distribution.cpp;../condor_utils/condor_pidenvid.cpp;dprintf_lite.cpp" ${C_SBIN} "procdutils" OFF)
 -
 -	condor_exe( gidd_alloc "gidd_alloc.cpp" ${C_SBIN} "" OFF)
--endif(LINUX AND WANT_FULL_DEPLOYMENT)
+-endif(LINUX)
 -
--if (WINDOWS AND WANT_FULL_DEPLOYMENT)
+-if (WINDOWS)
 -	condor_exe( procd_ctl "procd_ctl.cpp;${ProcClientElements};${SAFE_OPEN_SRC};../condor_utils/distribution.cpp;../condor_utils/my_distribution.cpp;../condor_utils/condor_pidenvid.cpp" ${C_SBIN} "procdutils;condor_utils" OFF)
--endif(WINDOWS AND WANT_FULL_DEPLOYMENT)
+-endif(WINDOWS)
  
  set( PROCD_CLIENT_UTIL_SRCS "${ProcClientElements}" PARENT_SCOPE )
 diff --git a/src/condor_schedd.V6/CMakeLists.txt b/src/condor_schedd.V6/CMakeLists.txt
@@ -46,7 +46,7 @@ index 00efb23c6a..d1a154ff53 100644
 -
  set( QMGMT_UTIL_SRCS "${qmgmtElements};${CMAKE_CURRENT_SOURCE_DIR}/qmgmt_common.cpp" PARENT_SCOPE )
 diff --git a/src/condor_scripts/CMakeLists.txt b/src/condor_scripts/CMakeLists.txt
-index 7e281375d4..b75d200b88 100644
+index a8cbe59cd5..4790fbcc17 100644
 --- a/src/condor_scripts/CMakeLists.txt
 +++ b/src/condor_scripts/CMakeLists.txt
 @@ -30,7 +30,6 @@ endif(WINDOWS)
@@ -57,7 +57,7 @@ index 7e281375d4..b75d200b88 100644
      install ( FILES condor_gather_info DESTINATION ${C_BIN} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
      install ( FILES condor_pool_job_report DESTINATION ${C_BIN} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
      install ( FILES make-personal-from-tarball DESTINATION ${C_BIN} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
-@@ -56,7 +55,6 @@ if (NOT WINDOWS)
+@@ -55,7 +54,6 @@ if (NOT WINDOWS)
          install ( FILES common-cloud-attributes-google.py DESTINATION ${C_LIBEXEC} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
          install ( FILES common-cloud-attributes-aws.sh DESTINATION ${C_LIBEXEC} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
          install ( FILES common-cloud-attributes-aws.py DESTINATION ${C_LIBEXEC} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
@@ -66,7 +66,7 @@ index 7e281375d4..b75d200b88 100644
  
      install ( FILES condor_qsub DESTINATION ${C_BIN} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
 diff --git a/src/condor_tools/CMakeLists.txt b/src/condor_tools/CMakeLists.txt
-index 364d000791..43bea561d6 100644
+index a18a076f10..43bea561d6 100644
 --- a/src/condor_tools/CMakeLists.txt
 +++ b/src/condor_tools/CMakeLists.txt
 @@ -19,13 +19,8 @@
@@ -83,7 +83,7 @@ index 364d000791..43bea561d6 100644
  condor_exe(condor_config_val "config_val.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
  condor_exe(condor_userprio "user_prio.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
  condor_exe(condor_transform_ads "transform_ads.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
-@@ -65,14 +60,8 @@ condor_exe(condor_transfer_data "transfer_data.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS
+@@ -65,12 +60,8 @@ condor_exe(condor_transfer_data "transfer_data.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS
  condor_exe(condor_version "version.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
  condor_exe(condor_wait "wait.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
  condor_exe(condor_history "history.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
@@ -92,9 +92,7 @@ index 364d000791..43bea561d6 100644
 -condor_exe(condor_on "tool.cpp" "${C_SBIN}" "${CONDOR_TOOL_LIBS}" OFF)
  
 -clone_install(condor_on "${C_SBIN}" "condor_off;condor_restart;condor_reconfig;condor_set_shutdown" "${C_SBIN}")
--if (WANT_FULL_DEPLOYMENT)
--    clone_install(condor_on "${C_SBIN}" "condor_set_shutdown" "${C_SBIN}")
--endif(WANT_FULL_DEPLOYMENT)
+-clone_install(condor_on "${C_SBIN}" "condor_set_shutdown" "${C_SBIN}")
  clone_install(condor_vacate "${C_BIN}" "condor_reschedule" "${C_BIN}")
  
  condor_exe(condor_stats "stats.cpp" ${C_BIN} "${CONDOR_TOOL_LIBS}" OFF)
