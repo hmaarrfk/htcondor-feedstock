@@ -1,0 +1,62 @@
+boost:
+- 1.74.0
+c_compiler:
+- gcc
+c_compiler_version:
+- '9'
+cdt_name:
+- cos7
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+cxx_compiler:
+- gxx
+cxx_compiler_version:
+- '9'
+docker_image:
+- quay.io/condaforge/linux-anvil-ppc64le
+expat:
+- '2'
+krb5:
+- '1.19'
+libcurl:
+- '7'
+libuuid:
+- '2'
+libxml2:
+- '2.9'
+openssl:
+- 1.1.1
+pcre:
+- '8'
+perl:
+- 5.32.1
+pin_run_as_build:
+  boost:
+    max_pin: x.x.x
+  krb5:
+    max_pin: x.x
+  libcurl:
+    max_pin: x
+  libuuid:
+    max_pin: x
+  libxml2:
+    max_pin: x.x
+  python:
+    min_pin: x.x
+    max_pin: x.x
+  sqlite:
+    max_pin: x
+python:
+- 3.10.* *_cpython
+- 3.7.* *_cpython
+- 3.8.* *_cpython
+- 3.9.* *_cpython
+sqlite:
+- '3'
+target_platform:
+- linux-ppc64le
+zip_keys:
+- - c_compiler_version
+  - cxx_compiler_version
