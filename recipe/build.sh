@@ -21,7 +21,8 @@ else
 fi
 
 # configure
-cmake $SRC_DIR \
+cmake ${CMAKE_ARGS} \
+        ${SRC_DIR} \
 	-D_VERBOSE:BOOL=TRUE \
 	-DBUILD_SHARED_LIBS:BOOL=TRUE \
 	-DBUILD_TESTING:BOOL=FALSE \
